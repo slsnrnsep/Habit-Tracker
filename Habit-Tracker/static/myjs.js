@@ -32,46 +32,47 @@ function get_posts(username) {
                     let time_post = new Date(post["date"])
                     let time_before = time2str(time_post)
 
-                    let class_heart = post['heart_by_me'] ? "fa-heart": "fa-heart-o"
-                    let class_star = post['star_by_me'] ? "fa-star": "fa-star-o"
+                    let class_heart = post['heart_by_me'] ? "fa-heart" : "fa-heart-o"
+                    let class_star = post['star_by_me'] ? "fa-star" : "fa-star-o"
                     let class_like = post['like_by_me'] ? "fa-thumbs-up" : "fa-thumbs-o-up"
 
-                    let html_temp = `<div class="box" id="${post["_id"]}">
-                                        <article class="media">
-                                            <div class="media-left">
-                                                <a class="image is-64x64" href="/user/${post['username']}">
-                                                    <img class="is-rounded" src="/static/${post['profile_pic_real']}"
-                                                         alt="Image">
-                                                </a>
-                                            </div>
-                                            <div class="media-content">
-                                                <div class="content">
-                                                    <p>
-                                                        <strong>${post['profile_name']}</strong> <small>@${post['username']}</small> <small>${time_before}</small>
-                                                        <br>
-                                                        ${post['comment']}
-                                                    </p>
-                                                </div>
-                                                <nav class="level is-mobile">
-                                                    <div class="level-left">
-                                                        <a class="level-item is-sparta" aria-label="heart" onclick="toggle_like('${post['_id']}', 'heart')">
-                                                            <span class="icon is-small"><i class="fa ${class_heart}"
-                                                                                           aria-hidden="true"></i></span>&nbsp;<span class="like-num">${num2str(post["count_heart"])}</span>
-                                                        </a>
-                                                        <a class="level-item is-sparta" aria-label="star" onclick="toggle_like('${post['_id']}', 'star')">
-                                                            <span class="icon is-small"><i class="fa ${class_star}"
-                                                                                           aria-hidden="true"></i></span>&nbsp;<span class="like-num">${num2str(post["count_star"])}</span>
-                                                        </a>
-                                                        <a class="level-item is-sparta" aria-label="like" onclick="toggle_like('${post['_id']}', 'like')">
-                                                            <span class="icon is-small"><i class="fa ${class_like}"
-                                                                                           aria-hidden="true"></i></span>&nbsp;<span class="like-num">${num2str(post["count_like"])}</span>
-                                                        </a>
-                                                    </div>
+                    let html_temp = `<div class="swiper-slide">
+                        <div class="card">
+                            <div class="card-image">
+                                <figure class="image is-4x3" style="width: 150px; margin: 5px auto;">
+                                    <img class="is-rounded"
+                                        src="{{ url_for('static', filename=user_info.profile_pic_real) }}"
+                                        alt="Placeholder image">
+                                </figure>
+                            </div>
 
-                                                </nav>
-                                            </div>
-                                        </article>
-                                    </div>`
+                            <div class="card-content">
+                                <div class="media">
+                                    <div class="media-left">
+                                    </div>
+                                    <div class="media-content">
+                                        <p class="title is-4">{{ user_info.profile_name }}</p>
+                                        <p class="subtitle is-6">
+                                            <a href="user.html">@{{ user_info.username }}</a>
+                                        </p>
+                                    </div>
+                                </div>
+
+                                <div class="content">
+                                    {{ user_info.profile_info }}
+                                    사용자의 습관 요약
+                                    <br>
+                                    <br>
+                                    <time datetime="2021-09-15">${작성시간 구현예정}</time>
+                                </div>
+                            </div>
+
+                            <div class="button">
+                                <button>습관체크하러가기</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>`
                     $("#post-box").append(html_temp)
                 }
             }

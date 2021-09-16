@@ -135,7 +135,7 @@
     <script>
         $(document).ready(function () {
             {#get_posts("{{ user_info.username }}")#}
-            window.location.replace("/user/{{user_info.username }}")
+            {#window.location.replace("/user/{{user_info.username }}")#}
         })
 
         function showStar() {
@@ -160,15 +160,12 @@
             })
         }
 
-        function update_profile() {
-            /user/id
 
+        function update_profile() {
             let name = $('#input-name').val()
             let file = $('#input-pic')[0].files[0]
             let about = $("#textarea-about").val()
             let form_data = new FormData()
-            let today = new Date().toISOString()
-
             form_data.append("file_give", file)
             form_data.append("name_give", name)
             form_data.append("about_give", about)
@@ -177,10 +174,7 @@
             $.ajax({
                 type: "POST",
                 url: "/update_profile",
-                data: {
-                    form_data,
-                    date_give: today
-                }
+                data: form_data,
                 cache: false,
                 contentType: false,
                 processData: false,
@@ -188,24 +182,36 @@
                     if (response["result"] == "success") {
                         alert(response["msg"])
                         window.location.reload()
+
                     }
                 }
             });
         }
 
+        function main_move() {
+            $.ajax({
+                type: 'GET',
+                url: '/detail',
+                data: {},
+                success: function (response) {
+                    $.cookie('mytoken', response['token'], {path: '/'});
+                    window.location.replace("/detail")
+                }
+            });
+        }
 
     </script>
 </head>
 
 <body>
-
 <div class="wrap">
     <div class="top">
         <div class="logo">
         </div>
+        <button onclick="sign_out2()" class="button is-danger is-rounded">마이페이지 나가기</button>
         <a class="button level-item has-text-centered is-sparta" aria-label="edit"
-           onclick='$("#modal-edit").addClass("is-active")'href="/user/{{ user_info.username }}">
-            마이페이지 이동&nbsp;&nbsp;&nbsp;
+           onclick='$("#modal-edit").addClass("is-active")'>
+            프로필 수정&nbsp;&nbsp;&nbsp;
             <span class="icon is-small"><i class="fa fa-pencil" aria-hidden="true"></i></span>
         </a>
         <button onclick="sign_out()" class="button is-danger is-rounded">Log Out</button>
@@ -279,72 +285,56 @@
 
     </div>
     <div class="bottom">
-        <div class="swiper">
-            <div class="swiper-wrapper">
-                <div class="swiper-slide">
-                    <div class="card">
-                        <div class="card-image">
-                            <figure class="image is-4x3" style="width: 150px; margin: 5px auto;">
-                                <img class="is-rounded"
-                                     src="{{ url_for('static', filename=user_info.profile_pic_real) }}"
-                                     alt="Placeholder image">
-                            </figure>
-                        </div>
+        <div class="card">
+            <div class="card-image">
+                <figure class="image is-4x3" style="width: 150px; margin: 5px auto;">
+                    <img class="is-rounded"
+                         src="{{ url_for('static', filename=user_info.profile_pic_real) }}"
+                         alt="Placeholder image">
+                </figure>
+            </div>
 
+            <div class="card-content">
+                <div class="media">
+                    <div class="media-left">
+                    </div>
+                    <div class="media-content">
+                        <p class="title is-4">{{ user_info.profile_name }}</p>
+                        <p class="subtitle is-6">
+                            <a href="user.html">@{{ user_info.username }}</a>
+                        </p>
+                    </div>
+                </div>
 
-                        <div class="card-content">
-                            <div class="media">
-                                <div class="media-left">
-                                </div>
-                                <div class="media-content">
-                                    <p class="title is-4">{{ user_info.profile_name }}</p>
-                                    <p class="subtitle is-6">
-                                        <a href="user.html">@{{ user_info.username }}</a>
-                                    </p>
-                                </div>
-                            </div>
-
-                            <div class="content">
-                                {{ user_info.profile_info }}
-                                <br>
-                                <br>
-                                {#<time datetime="2021-09-15">${작성시간 구현예정}</time>#}
-                            </div>
-                        </div>
-                        })
-
+                <div class="content">
+                    {{ user_info.profile_info }}
+                    <br>
+                    <br>
+                    <time datetime="2021-09-15"></time>
                 </div>
             </div>
-            <div class="swiper-pagination"></div>
-            <div class="swiper-button-prev"></div>
-            <div class="swiper-button-next"></div>
+
+            <div class="button" onclick="main_move()">
+                <button>습관체크하러가기</button>
+            </div>
         </div>
     </div>
 </div>
-<script src="https://unpkg.com/swiper@7/swiper-bundle.min.js"></script>
 <script>
-    const swiper = new Swiper('.swiper', {
-        // Optional parameters
-        direction: 'horizontal',
-        loop: true,
-
-        // If we need pagination
-        pagination: {
-            el: '.swiper-pagination',
-        },
-
-        // Navigation arrows
-        navigation: {
-            nextEl: '.swiper-button-next',
-            prevEl: '.swiper-button-prev',
-        },
-    });
+    $(document).ready(function () {
+        {#get_posts("{{ user_info.username }}")#}
+    })
 
     function sign_out() {
         $.removeCookie('mytoken', {path: '/'});
         alert('로그아웃!')
         window.location.href = "/login"
     }
+
+    function sign_out2() {
+        window.location.href = "/"
+    }
+
 </script>
 </body>
 
