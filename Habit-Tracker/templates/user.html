@@ -135,64 +135,28 @@
     <script>
         $(document).ready(function () {
             {#get_posts("{{ user_info.username }}")#}
-            window.location.replace("/user/{{user_info.username }}")
+            {#window.location.replace("/user/{{user_info.username }}")#}
         })
 
-        function showStar() {
-            $.ajax({
-                type: 'GET',
-                url: '/user/list?sample_give=샘플데이터',
-                data: {},
-                success: function (response) {
-                    alert(response['msg']);
-                }
-            });
-        }
-
-        function get_userlist() {
-            $.ajax({
-                type: "GET", // GET 방식으로 요청한다.
-                url: "/user/",
-                data: {}, // 요청하면서 함께 줄 데이터 (GET 요청시엔 비워두세요)
-                success: function (response) { // 서버에서 준 결과를 response라는 변수에 담음
-                    console.log(response) // 서버에서 준 결과를 이용해서 나머지 코드를 작성
-                }
-            })
-        }
-
-        function update_profile() {
-            /user/id
-
-            let name = $('#input-name').val()
-            let file = $('#input-pic')[0].files[0]
-            let about = $("#textarea-about").val()
-            let form_data = new FormData()
-            let today = new Date().toISOString()
-
-            form_data.append("file_give", file)
-            form_data.append("name_give", name)
-            form_data.append("about_give", about)
-            console.log(name, file, about, form_data)
-
-            $.ajax({
-                type: "POST",
-                url: "/update_profile",
-                data: {
-                    form_data,
-                    date_give: today
-                }
-                cache: false,
-                contentType: false,
-                processData: false,
-                success: function (response) {
-                    if (response["result"] == "success") {
-                        alert(response["msg"])
-                        window.location.reload()
-                    }
-                }
-            });
-        }
-
+                        {#let articles = response['all_articles']#}
+                        {#for (let i = 0; i < user_info.length; i++) {#}
+                        {#    let title = user_info[i]['username']#}
+                        {#    let image = user_info[i]['profile_pic_real']#}
+                        {#    let url = user_info[i]['profile_name']#}
+                        {#    let desc = user_info[i]['desc']#}
+                        {#    let comment = user_info[i]['comment']#}
+                        {##}
+                        {#    let temp_html = `<div class="card">#}
+                        {#                        <img class="card-img-top"#}
+                        {#                             src="${image}"#}
+                        {#                             alt="Card image cap">#}
+                        {#                        <div class="card-body">#}
+                        {#                            <a target="_blank" href="${url}" class="card-title">${title}</a>#}
+                        {#                            <p class="card-text">${desc}</p>#}
+                        {#                            <p class="card-text comment">${comment}</p>#}
+                        {#                        </div>#}
+                        {#                    </div>`#}
+                        {#    $('#cards-box').append(temp_html)#}
 
     </script>
 </head>
@@ -282,7 +246,7 @@
         <div class="swiper">
             <div class="swiper-wrapper">
                 <div class="swiper-slide">
-                    <div class="card">
+                    <div id=cards-box class="card">
                         <div class="card-image">
                             <figure class="image is-4x3" style="width: 150px; margin: 5px auto;">
                                 <img class="is-rounded"
@@ -290,8 +254,6 @@
                                      alt="Placeholder image">
                             </figure>
                         </div>
-
-
                         <div class="card-content">
                             <div class="media">
                                 <div class="media-left">
@@ -306,19 +268,17 @@
 
                             <div class="content">
                                 {{ user_info.profile_info }}
-                                <br>
-                                <br>
-                                {#<time datetime="2021-09-15">${작성시간 구현예정}</time>#}
                             </div>
                         </div>
-                        })
-
-                </div>
-            </div>
+                    </div>
             <div class="swiper-pagination"></div>
             <div class="swiper-button-prev"></div>
             <div class="swiper-button-next"></div>
+
+
         </div>
+
+
     </div>
 </div>
 <script src="https://unpkg.com/swiper@7/swiper-bundle.min.js"></script>
