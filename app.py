@@ -285,7 +285,9 @@ def update_like():
 @app.route('/habit', methods=['POST'])
 def write_habit():
     habit_receive = request.form['new_habit_give']
+    username_receive = request.form['username_give']
     doc = {
+        'username' : username_receive,
         'habit': habit_receive,
         'like' : 0
     }
@@ -295,10 +297,15 @@ def write_habit():
 
 
 # API 역할을 하는 부분
-@app.route('/habit', methods=['GET'])
+@app.route('/habit/list', methods=['POST'])
 def show_habit():
-    habits = list(db.habit.find({}, {'_id': False}).sort('like', -1))
-    return jsonify({'all_habits': habits})
+    try:
+        username = request.form['username_give']
+        habits = list(db.habit.find({"username": username}, {'_id': False}).sort('like', -1))
+        return jsonify({"result": "success",'all_habits': habits})
+    except:
+        return redirect(url_for("home"))
+
 
 @app.route('/habit/like', methods=['POST'])
 def like_habit():

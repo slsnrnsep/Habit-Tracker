@@ -4,7 +4,9 @@
 <head>
     <!-- Webpage Title -->
     <title>Habit Tracker | My page</title>
-
+    <meta property="og:title" content="습관 기록 페이지"/>
+    <meta property="og:description" content="처음에는 우리가 습관을 만들지만, 나중에는 습관이 우리를 만든다."/>
+    <meta property="og:image" content="{{ url_for('static', filename='img.png') }}"/>
     <!-- Required meta tags -->
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
@@ -73,6 +75,7 @@
             border: 1px solid #ED8975;
             color: #ED8975;
         }
+
         .top {
             display: flex;
             flex-direction: row;
@@ -171,8 +174,6 @@
             {#get_posts("{{ user_info.username }}")#}
             {#window.location.replace("/user/{{user_info.username }}")#}
         })
-
-
 
 
         function update_profile() {
