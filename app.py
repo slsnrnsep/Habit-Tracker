@@ -138,7 +138,7 @@ def main_move():
         payload = jwt.decode(token_receive, SECRET_KEY, algorithms=['HS256'])
 
         user_info = db.users.find_one({"username": payload["id"]})
-        return render_template('detail_final.html', user_info=user_info)
+        return render_template('dawon_final.html', user_info=user_info)
 
     except jwt.ExpiredSignatureError:
         return redirect(url_for("login", msg="로그인 시간이 만료되었습니다."))
@@ -318,7 +318,7 @@ def like_habit():
 
     db.habit.update_one({'habit': habit_receive}, {'$set': {'like': new_like}})
 
-    return jsonify({'msg': '슴관라이크 완료!'})
+    return jsonify({'msg': '습관 달성 완료! 오늘도 목표한 일을 이루어 내셨군요! 앞으로도 화이팅'})
 
 @app.route('/habit/hate', methods=['POST'])
 def hate_habit():
@@ -331,13 +331,13 @@ def hate_habit():
 
     db.habit.update_one({'habit': habit_receive}, {'$set': {'like': new_like}})
 
-    return jsonify({'msg': '슴관hate 완료!'})
+    return jsonify({'msg': '습관 미달성 ㅠㅠ 내일부터 더 빡세게!!'})
 
 @app.route('/habit/delete', methods=['POST'])
 def delete_habit():
     habit_receive = request.form['habit_give']
     db.habit.delete_one({'habit': habit_receive})
-    return jsonify({'msg': 'habit 삭제 완료!'})
+    return jsonify({'msg': '습관 삭제 완료!'})
 
 
 if __name__ == '__main__':
