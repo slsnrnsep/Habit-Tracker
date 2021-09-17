@@ -1,0 +1,527 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+    <!-- Webpage Title -->
+    <title>Habit Tracker | 프로필 상세페이지</title>
+
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+    <!--CSS -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bulma@0.9.1/css/bulma.min.css">
+    <link rel="stylesheet" href="https://unpkg.com/swiper@7/swiper-bundle.min.css">
+    <link href="//maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Nanum+Myeongjo&family=Noto+Sans+KR:wght@100&display=swap"
+          rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Pacifico&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Nanum+Pen+Script&display=swap" rel="stylesheet">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+
+    <!-- JS -->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-cookie/1.4.1/jquery.cookie.js"></script>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css"
+          integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+    <style>
+        * {
+            box-sizing: border-box;
+            margin: 0;
+        }
+
+        .wrap {
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+            align-items: center;
+            width: 1200px;
+            height: 700px;
+            margin: 70px auto;
+            border-radius: 30px;
+            box-shadow: 5px 5px 10px 10px #9E9E9E;
+            background-image: url('../static/background-img.png');
+            background-size: cover;
+            background-position: center center;
+            background-repeat: no-repeat;
+        }
+
+        .top {
+            display: flex;
+            flex-direction: row;
+            justify-content: space-between;
+            align-items: center;
+            width: 1200px;
+            height: 20px;
+            padding: 30px;
+        }
+
+        .top .logo {
+            background-image: url('../static/logo.png');
+            background-size: cover;
+            background-repeat: no-repeat;
+            background-position: center;
+            width: 100px;
+            height: 20px;
+        }
+
+        .bottom {
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            width: 1100px;
+            margin-bottom: 30px;
+        }
+
+        .bottom-header {
+            width: 100%;
+            height: 50px;
+            padding: 10px;
+            text-align: left;
+        }
+
+        .bottom-header h1 {
+            font: bold 200% Consolas, Monaco, monospace;
+            color: #ED8975;
+            border-right: 0.1em solid;
+            width: 25ch;
+            white-space: nowrap;
+            overflow: hidden;
+            animation: typing 1.5s steps(20, end), cursor-blink 0.2s step-end infinite alternate;
+        }
+
+        @keyframes typing {
+            from {
+                width: 0;
+            }
+        }
+
+        @keyframes cursor-blink {
+            50% {
+                border-color: transparent;
+            }
+        }
+
+        .bottom-body {
+            display: flex;
+            flex-direction: row;
+            justify-content: center;
+            align-items: center;
+            width: 1100px;
+            margin: 20px;
+            padding: 0 50px;
+        }
+
+        .bottom-body .habit-input {
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            width: 300px;
+            height: 80%;
+            background-color: #fff;
+            box-shadow: 1px 1px 20px 8px #ED8975;
+            border-radius: 30px;
+        }
+
+        .bottom-body .habit-input input {
+            width: 200px;
+        }
+
+        .bottom-body .habit-input button {
+            width: 200px;
+            height: 35px;
+            margin-top: 250px;
+            border-radius: 30px;
+            background-color: #ED8975;
+            border: none;
+            color: #fff
+        }
+
+        .bottom-body .swiper {
+            width: 600px;
+            height: 500px;
+            margin-left: 100px;
+        }
+
+        .swiper .card {
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-content: center;
+            width: 350px;
+            height: 350px;
+            border-radius: 50%;
+            margin: 15% auto;
+        }
+
+        .swiper .card .card-content {
+            text-align: center;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-content: center;
+        }
+
+        .swiper .card .card-content button {
+            border: none;
+            background-color: transparent;
+            color: #ED8975;
+            font-size: 25px;
+            cursor: pointer;
+            margin: auto;
+        }
+
+        .bottom-footer {
+            width: 100%;
+            height: 50px;
+            text-align: right;
+        }
+
+        .bottom-footer button {
+            height: 35px;
+            background-color: #ED8975;
+            border-color: transparent;
+            color: #fff !important;
+            border-radius: 30px;
+        }
+
+
+        .top {
+            position: relative;
+        }
+
+        .wrap {
+            position: relative;
+        }
+
+        .nav-main {
+            display: flex;
+            flex-direction: row;
+            justify-content: space-between;
+            position: absolute;
+            top: 0;
+            width: 1150px;
+            height: 60px;
+            background: #fff;
+            display: flex;
+            flex-wrap: wrap;
+            z-index: 1000;
+        }
+
+        .btn-toggle-nav {
+            width: 55px;
+            height: 55px;
+            background-color: #E9B6AE;
+            background-image: url('/static/img:menu.png');
+            background-repeat: no-repeat;
+            background-size: contain;
+            background-position: center;
+            cursor: pointer;
+            margin-right: -22px;
+            border-radius: 25px;
+        }
+
+        .btn-toggle-nav:hover {
+            opacity: 0.5;
+        }
+
+        .nav-main ul {
+            display: flex;
+            flex-wrap: wrap;
+            padding-right: 15px;
+        }
+
+        .nav-main ul li {
+            list-style: none;
+            line-height: 60px;
+        }
+
+        .nav-main ul li a {
+            display: block;
+            height: 100%;
+            padding: 0 10px;
+            text-transform: uppercase;
+            text-emphasis: none;
+            columns: #111;
+            font-family: arial;
+            font-size: 16px;
+        }
+
+        .nav-sidebar {
+            position: absolute;
+            right: 0;
+            bottom: 0;
+            width: 50px;
+            height: 640px;
+            padding: 0 5px;
+            background-color: #E9B6AE;
+            z-index: 1000;
+            transition: all 0.3s ease-in-out;
+            border-bottom-right-radius: 20px;
+            border-radius: 20px;
+        }
+
+        .nav-sidebar ul {
+            padding-top: 15px;
+            overflow: hidden;
+            visibility: hidden;
+        }
+
+        .nav-sidebar ul li {
+            line-height: 60px;
+            list-style: none;
+        }
+
+        .nav-sidebar ul li span,
+        .nav-sidebar ul li a {
+            display: block;
+            height: 60px;
+            padding: 0 10px;
+            text-decoration: none;
+            text-transform: uppercase;
+            color: #111;
+            font-family: Arial;
+            font-size: 16px;
+            white-space: nowrap;
+            opacity: 0;
+            transition: all 0.3s ease-in-out;
+        }
+
+        .nav-sidebar ul li a:hover {
+            background-color: #eee;
+            border-radius: 30px;
+        }
+    </style>
+
+    <script>
+        $(document).ready(function () {
+            console.log('it works')
+        })
+
+        function update_profile() {
+            let name = $('#input-name').val()
+            let file = $('#input-pic')[0].files[0]
+            let about = $("#textarea-about").val()
+            let form_data = new FormData()
+            form_data.append("file_give", file)
+            form_data.append("name_give", name)
+            form_data.append("about_give", about)
+            console.log(name, file, about, form_data)
+
+            $.ajax({
+                type: "POST",
+                url: "/update_profile",
+                data: form_data,
+                cache: false,
+                contentType: false,
+                processData: false,
+                success: function (response) {
+                    if (response["result"] == "success") {
+                        alert(response["msg"])
+                        window.location.reload()
+                    }
+                }
+            });
+        }
+
+        function sign_out() {
+            $.removeCookie('mytoken', {path: '/'});
+            let logout = confirm('벌써 나가시려구요...? 🤔 흐음... 당신은 프로 작심삼일러?')
+            if (logout === 'Y') {
+                window.location.href = "/login"
+            } else if (logout === 'y') {
+                window.location.href = "/login"
+            } else {
+                alert('안나가셨네요? 🤗 그럼 습관을 조금 더 점검해볼까요? ㄱㄱㄱ')
+            }
+        }
+
+        function new_habit() {
+            let new_habit = $("#habit_input").val()
+            console.log(new_habit)
+
+            $.ajax({
+                type: "POST",
+                url: "/detail",
+                data: {new_habit_give: new_habit},
+                success: function (response) {
+                    alert(response["msg"])
+                    window.location.reload();
+                }
+            });
+        }
+
+        function showHabit() {
+            $.ajax({
+                type: 'GET',
+                url: '/detail_list',
+                data: {},
+                success: function (response) {
+                    let user_feat = response['user_feat']
+                    console.log(user_feat)
+                    $('#cards-box').empty()
+                    for (let i = 0; i < user_feat.length; i++) {
+                        let id = user_feat[i]['username']
+                        let img_url = user_feat[i]['profile_pic_real']
+                        let nickname = user_feat[i]['profile_name']
+                        let info = user_feat[i]['profile_info']
+                        let img_url_before = "url_for('static', filename="
+                        let img_url_after = ")"
+                        let finish = img_url_before + img_url + img_url_after
+                        console.log(finish)
+                        let temp_html = `<div class="swiper-slide">
+                            <div class="card">
+                                <div class="card-content">
+                                    <div class="content">
+                                        ${id}times
+                                        <br>
+                                        /week
+                                    </div>
+                                    <div class="habit-name">
+                                        ${nickname}
+                                    </div>
+                                    <div class="buttons">
+                                        <button type="submit">
+                                            <i class="fa fa-plus-circle" aria-hidden="true"></i>
+                                        </button>
+                                        <button type="submit">
+                                            <i class="fa fa-minus-circle" aria-hidden="true"></i>
+                                        </button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>`
+                        let temp_html = `
+                    <div class="swiper-slide">
+                    <div class="card">
+                              <div class="card-image">
+                            <figure class="image is-4x3" style="width: 150px; margin: 5px auto;">
+                                <img class="is-rounded"
+                                     src="${finish}"
+                                     alt="Placeholder image">
+                            </figure>
+                        </div>
+                        <div class="card-content">
+                            <div class="media">
+                                <div class="media-left">
+                                </div>
+                                <div class="media-content">
+                                    <p class="title is-4">${nickname}</p>
+                                    <p class="subtitle is-6">
+                                        <a href="user.html">@${id}</a>
+                                    </p>
+                                </div>
+                            </div>
+
+                            <div class="content">
+                               ${info}
+                            </div>
+                        </div>`
+                        $('#cards-box').append(temp_html)
+                    }
+
+                }
+            });
+        }
+    </script>
+</head>
+
+<body>
+<div class="wrap">
+    <div class="top">
+        <nav class="nav-main">
+            <div class="logo">
+            </div>
+            <div class="btn-toggle-nav" onclick="toggleNav()">
+            </div>
+        </nav>
+    </div>
+    <div class="bottom">
+        <div class="bottom-header">
+            <h1>
+                Welcome back ${name} ...
+            </h1>
+        </div>
+        <div class="bottom-body">
+            <div class="habit-input">
+                <p>
+                    습관: <input id="habit_input" type="text" placeholder="새로운 습관을 추가해주세요." maxlength="10">
+                </p>
+                <p>
+                    (습관을 입력해주세요. 입력을 안했을시 경고) or alert('입력해주세요')
+                </p>
+                <button type="submit" onclick="new_habit()">
+                    습관 생성
+                </button>
+            </div>
+            <div class="swiper mySwiper">
+                <div id=cards-box class="swiper-wrapper">
+                </div>
+                <div class="swiper-pagination"></div>
+                <div class="swiper-button-prev"></div>
+                <div class="swiper-button-next"></div>
+            </div>
+            <aside class="nav-sidebar">
+                <ul>
+                    <li><span>현재: 상세페이지</span></li>
+                    <li><a href="/">사용자들 프로필 모음으로 나가기</a></li>
+                </ul>
+            </aside>
+        </div>
+    </div>
+</div>
+
+
+<script src="https://unpkg.com/swiper@7/swiper-bundle.min.js"></script>
+<script>
+    const swiper = new Swiper('.mySwiper', {
+        cssMode: true,
+        navigation: {
+            nextEl: ".swiper-button-next",
+            prevEl: ".swiper-button-prev",
+        },
+        pagination: {
+            el: ".swiper-pagination",
+        },
+        mousewheel: true,
+        keyboard: true,
+    });
+    let toggleNavStatus = false;
+
+    let toggleNav = function () {
+        let getSidebar = document.querySelector(".nav-sidebar");
+        let getSidebarUl = document.querySelector(".nav-sidebar ul");
+        let getSidebarTitle = document.querySelector(".nav-sidebar span");
+        let getSidebarLinks = document.querySelectorAll(".nav-sidebar a");
+
+        if (toggleNavStatus === false) {
+            getSidebarUl.style.visibility = "visible";
+            getSidebar.style.width = "272px";
+            getSidebarTitle.style.opacity = "0.5";
+
+            let arrayLength = getSidebarLinks.length;
+            for (var i = 0; i < arrayLength; i++) {
+                getSidebarLinks[i].style.opacity = "1";
+            }
+            toggleNavStatus = true;
+        } else if (toggleNavStatus === true) {
+            getSidebar.style.width = "50px";
+            getSidebarTitle.style.opacity = "0";
+
+            let arrayLength = getSidebarLinks.length;
+            for (let i = 0; i < arrayLength; i++) {
+                getSidebarLinks[i].style.opacity = "0";
+            }
+
+            getSidebarUl.style.visibility = "hidden";
+
+            toggleNavStatus = false;
+        }
+    }
+</script>
+</body>
+
+</html>

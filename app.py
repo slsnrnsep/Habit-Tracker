@@ -13,6 +13,7 @@ app.config['UPLOAD_FOLDER'] = "./static/profile_pics"
 SECRET_KEY = 'SPARTA'
 
 client = MongoClient('localhost', 27017)
+#client = MongoClient('mongodb://test:test@localhost', 27017)
 db = client.dbsparta_plus_week4
 
 
@@ -22,7 +23,7 @@ def home():
     try:
         payload = jwt.decode(token_receive, SECRET_KEY, algorithms=['HS256'])
         user_info = db.users.find_one({"username": payload["id"]})
-        return render_template('user_backup.html', user_info=user_info)
+        return render_template('3page_final.html', user_info=user_info)
     except jwt.ExpiredSignatureError:
         return redirect(url_for("login", msg="로그인 시간이 만료되었습니다."))
     except jwt.exceptions.DecodeError:
@@ -69,7 +70,7 @@ def my_page(username):
         status = (username == payload["id"])  # 내 프로필이면 True, 다른 사람 프로필 페이지면 False
 
         user_info = db.users.find_one({"username": username}, {"_id": False})
-        return render_template('user2.html', user_info=user_info, status=status)
+        return render_template('mypage.html', user_info=user_info, status=status)
     except (jwt.ExpiredSignatureError, jwt.exceptions.DecodeError):
         return redirect(url_for("home"))
 
