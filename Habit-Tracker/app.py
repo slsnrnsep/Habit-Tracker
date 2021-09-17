@@ -22,7 +22,7 @@ def home():
     try:
         payload = jwt.decode(token_receive, SECRET_KEY, algorithms=['HS256'])
         user_info = db.users.find_one({"username": payload["id"]})
-        return render_template('user.html', user_info=user_info)
+        return render_template('user_backup.html', user_info=user_info)
     except jwt.ExpiredSignatureError:
         return redirect(url_for("login", msg="로그인 시간이 만료되었습니다."))
     except jwt.exceptions.DecodeError:
@@ -34,19 +34,32 @@ def login():
     msg = request.args.get("msg")
     return render_template('login.html', msg=msg)
 
+@app.route('/user', methods=['GET'])
+def listing():
+    user_feat = list(db.users.find({}, {'_id': False}))
+    return jsonify({'user_feat': user_feat})
 
-@app.route('/user')
-def user(username):
-    # 각 사용자의 프로필과 글을 모아볼 수 있는 공간
-    token_receive = request.cookies.get('mytoken')
-    try:
-        payload = jwt.decode(token_receive, SECRET_KEY, algorithms=['HS256'])
-        status = (username == payload["id"])  # 내 프로필이면 True, 다른 사람 프로필 페이지면 False
+@app.route('/detail_list', methods=['GET'])
+def listing2():
+    user_feat = list(db.users.find({}, {'_id': False}))
+    return jsonify({'user_feat': user_feat})
+# @app.route('/user',methods=['GET'])
+# def user():
+#     user_info = list(db.users.find({}, {'_id': False}))
+#     return render_template('user_backup.html', user_info=user_info)
 
-        user_info = db.users.find_one({"username": username}, {"_id": False})
-        return render_template('user.html', user_info=user_info, status=status)
-    except (jwt.ExpiredSignatureError, jwt.exceptions.DecodeError):
-        return redirect(url_for("home"))
+# @app.route('/user')
+# def user(username):
+#     # 각 사용자의 프로필과 글을 모아볼 수 있는 공간
+#     token_receive = request.cookies.get('mytoken')
+#     try:
+#         payload = jwt.decode(token_receive, SECRET_KEY, algorithms=['HS256'])
+#         status = (username == payload["id"])  # 내 프로필이면 True, 다른 사람 프로필 페이지면 False
+#
+#         user_info = db.users.find_one({"username": username}, {"_id": False})
+#         return render_template('user_backup.html', user_info=user_info, status=status)
+#     except (jwt.ExpiredSignatureError, jwt.exceptions.DecodeError):
+#         return redirect(url_for("home"))
 
 @app.route('/user/<username>')
 def my_page(username):
@@ -113,7 +126,7 @@ def main_move():
     try:
         payload = jwt.decode(token_receive, SECRET_KEY, algorithms=['HS256'])
         user_info = db.users.find_one({"username": payload["id"]})
-        return render_template('index.html', user_info=user_info)
+        return render_template('detail.html', user_info=user_info)
 
     except jwt.ExpiredSignatureError:
         return redirect(url_for("login", msg="로그인 시간이 만료되었습니다."))
@@ -169,15 +182,11 @@ def posting():
     except (jwt.ExpiredSignatureError, jwt.exceptions.DecodeError):
         return redirect(url_for("home"))
 
-@app.route('/user/list', methods=['GET'])
-def show_stars():
-    token_receive = request.cookies.get('mytoken')
-    try:
-        payload = jwt.decode(token_receive, SECRET_KEY, algorithms=['HS256'])
-        user_info = db.users.find_one({"username": payload["id"]})
-        return render_template('user.html', user_info=user_info)
-    except (jwt.ExpiredSignatureError, jwt.exceptions.DecodeError):
-        return redirect(url_for("home"))
+# @app.route('/user', methods=['GET'])
+# def show_stars():
+#     sample_receive = request.args.get('sample_give')
+#     print(sample_receive)
+#     return jsonify({'msg': 'list 연결되었습니다!'})
 
 
 ################상세페이지 란#########################################
@@ -234,8 +243,6 @@ def update_like():
         return jsonify({"result": "success", 'msg': 'updated', "count": count})
     except (jwt.ExpiredSignatureError, jwt.exceptions.DecodeError):
         return redirect(url_for("home"))
-
-
 
 if __name__ == '__main__':
     app.run('0.0.0.0', port=5000, debug=True)

@@ -8,8 +8,6 @@
     <!-- Required meta tags -->
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-    <link rel="stylesheet" href="/style.css">
-    <link rel="stylesheet" href="resetstyle.css">
 
     <!-- Bulma CSS -->
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bulma@0.9.1/css/bulma.min.css">
@@ -24,7 +22,7 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-cookie/1.4.1/jquery.cookie.js"></script>
     <script src="{{ url_for('static', filename='myjs.js') }}"></script>
 
-    <link rel="stylesheet" href="https://unpkg.com/swiper@7/swiper-bundle.min.css"/>
+    <link rel="stylesheet" href="https://unpkg.com/swiper/swiper-bundle.min.css"/>
 
 
     <style>
@@ -133,10 +131,10 @@
             text-align: center;
         }
 
-        {#< !-- side bar style -->* {#}
-        {#            margin: 0;#}
-        {#            padding: 0;#}
-        {#        }#}
+        {#/*< !-- side bar style -->* {*/#}
+        {#/*    margin: 0;*/#}
+        {#/*    padding: 0;*/#}
+        {#/*}*/#}
 
         a.button {
             display: inline-block;
@@ -255,7 +253,8 @@
             padding: 0 10px;
             text-transform: uppercase;
             text-emphasis: none;
-        {#columns: #111;#} font-family: arial;
+            {#/*columns: #111;*/#}
+            font-family: arial;
             font-size: 16px;
         }
 
@@ -308,11 +307,60 @@
 
     <script>
         $(document).ready(function () {
-            {#get_posts("{{ user_info.username }}")# }#}
-            console.log(user_info)
+            showStar()
         })
 
+        function showStar() {
+            $.ajax({
+                type: 'GET',
+                url: '/user',
+                data: {},
+                success: function (response) {
+                    let user_feat = response['user_feat']
+                    console.log(user_feat)
+                    $('#cards-box').empty()
+                    for (let i = 0; i < user_feat.length; i++) {
+                        let id = user_feat[i]['username']
+                        let img_url = user_feat[i]['profile_pic_real']
+                        let nickname = user_feat[i]['profile_name']
+                        let info = user_feat[i]['profile_info']
+                        let img_url_before = "url_for('static', filename="
+                        let img_url_after = ")"
+                        let finish = img_url_before + img_url + img_url_after
 
+                        console.log(finish)
+                        let temp_html = `
+                    <div class="swiper-slide">
+                    <div class="card">
+                              <div class="card-image">
+                            <figure class="image is-4x3" style="width: 150px; margin: 5px auto;">
+                                <img class="is-rounded"
+                                     src="${finish}"
+                                     alt="Placeholder image">
+                            </figure>
+                        </div>
+                        <div class="card-content">
+                            <div class="media">
+                                <div class="media-left">
+                                </div>
+                                <div class="media-content">
+                                    <p class="title is-4">${nickname}</p>
+                                    <p class="subtitle is-6">
+                                        <a href="user.html">@${id}</a>
+                                    </p>
+                                </div>
+                            </div>
+
+                            <div class="content">
+                               ${info}
+                            </div>
+                        </div>`
+                        $('#cards-box').append(temp_html)
+                    }
+
+                }
+            });
+        }
         function update_profile() {
             let name = $('#input-name').val()
             let file = $('#input-pic')[0].files[0]
@@ -339,169 +387,23 @@
             });
         }
 
-        function sign_out() {
-            $.removeCookie('mytoken', {path: '/'});
-            alert('로그아웃!')
-            window.location.href = "/login"
-        }
     </script>
 </head>
 
 <body>
 
-
 <div class="wrap">
     <div class="top">
-        <nav class="nav-main">
-            <div class="logo">
-            </div>
-            <div class="btn-toggle-nav" onclick="toggleNav()"></div>
-        </nav>
+            <nav class="nav-main">
+                <div class="logo">
+                </div>
+                <div class="btn-toggle-nav" onclick="toggleNav()"></div>
+            </nav>
 
-    </div>
+        </div>
     <div class="bottom">
-        <div class="swiper">
-            <div class="swiper-wrapper">
-                <div class="swiper-slide">
-                    <div class="card">
-                        <div class="card-image">
-                            <figure class="image is-4x3" style="width: 150px; margin: 5px auto;">
-                                <img class="is-rounded"
-                                     src="{{ url_for('static', filename=user_info.profile_pic_real) }}"
-                                     alt="Placeholder image">
-                            </figure>
-                        </div>
-
-                        <div class="card-content">
-                            <div class="media">
-                                <div class="media-left">
-                                </div>
-                                <div class="media-content">
-                                    <p class="title is-4">{{ user_info.profile_name }}</p>
-                                    <p class="subtitle is-6">
-                                        <a href="user.html">@{{ user_info.username }}</a>
-                                    </p>
-                                </div>
-                            </div>
-
-                            <div class="content">
-                                {{ user_info.profile_info }}
-                                사용자의 습관 요약
-                                <br>
-                                <br>
-                                <time datetime="2021-09-15">${작성시간 구현예정}</time>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <div class="swiper-slide">
-                    <div class="card">
-                        <div class="card-image">
-                            <figure class="image is-4x3" style="width: 150px; margin: 5px auto;">
-                                <img class="is-rounded"
-                                     src="{{ url_for('static', filename=user_info.profile_pic_real) }}"
-                                     alt="Placeholder image">
-                            </figure>
-                        </div>
-
-                        <div class="card-content">
-                            <div class="media">
-                                <div class="media-left">
-                                </div>
-                                <div class="media-content">
-                                    <p class="title is-4">{{ user_info.profile_name }}</p>
-                                    <p class="subtitle is-6">
-                                        <a href="user.html">@{{ user_info.username }}</a>
-                                    </p>
-                                </div>
-                            </div>
-
-                            <div class="content">
-                                {{ user_info.profile_info }}
-                                사용자의 습관 요약
-                                <br>
-                                <br>
-                                <time datetime="2021-09-15">${작성시간 구현예정}</time>
-                            </div>
-                        </div>
-
-                        <div class="button">
-                            <button>습관체크하러가기</button>
-                        </div>
-                    </div>
-                </div>
-                <div class="swiper-slide">
-                    <div class="card">
-                        <div class="card-image">
-                            <figure class="image is-4x3" style="width: 150px; margin: 5px auto;">
-                                <img class="is-rounded"
-                                     src="{{ url_for('static', filename=user_info.profile_pic_real) }}"
-                                     alt="Placeholder image">
-                            </figure>
-                        </div>
-
-                        <div class="card-content">
-                            <div class="media">
-                                <div class="media-left">
-                                </div>
-                                <div class="media-content">
-                                    <p class="title is-4">{{ user_info.profile_name }}</p>
-                                    <p class="subtitle is-6">
-                                        <a href="user.html">@{{ user_info.username }}</a>
-                                    </p>
-                                </div>
-                            </div>
-
-                            <div class="content">
-                                {{ user_info.profile_info }}
-                                사용자의 습관 요약
-                                <br>
-                                <br>
-                                <time datetime="2021-09-15">${작성시간 구현예정}</time>
-                            </div>
-                        </div>
-
-                        <div class="button">
-                            <button>습관체크하러가기</button>
-                        </div>
-                    </div>
-                </div>
-                <div class="swiper-slide">
-                    <div class="card">
-                        <div class="card-image">
-                            <figure class="image is-4x3" style="width: 150px; margin: 5px auto;">
-                                <img class="is-rounded"
-                                     src="{{ url_for('static', filename=user_info.profile_pic_real) }}"
-                                     alt="Placeholder image">
-                            </figure>
-                        </div>
-
-                        <div class="card-content">
-                            <div class="media">
-                                <div class="media-left">
-                                </div>
-                                <div class="media-content">
-                                    <p class="title is-4">{{ user_info.profile_name }}</p>
-                                    <p class="subtitle is-6">
-                                        <a href="user.html">@{{ user_info.username }}</a>
-                                    </p>
-                                </div>
-                            </div>
-
-                            <div class="content">
-                                {{ user_info.profile_info }}
-                                사용자의 습관 요약
-                                <br>
-                                <br>
-                                <time datetime="2021-09-15">${작성시간 구현예정}</time>
-                            </div>
-                        </div>
-
-                        <div class="button">
-                            <button>습관체크하러가기</button>
-                        </div>
-                    </div>
-                </div>
+        <div class="swiper mySwiper">
+            <div id=cards-box class="swiper-wrapper">
             </div>
             <div class="swiper-pagination"></div>
             <div class="swiper-button-prev"></div>
@@ -509,26 +411,26 @@
         </div>
     </div>
     <aside class="nav-sidebar">
-        <ul>
-            <li><span>a</span></li>
-            <li><a href="#">Log Out</a></li>
-            <li><a href="/user/{{ user_info.username }}">My Profile</a></li>
-            <li><a href="#">My Habits</a></li>
-            <li><a href="#">How to use</a></li>
-            <li>
-                <a href="javascript:openModal('contact');" class="modal-btn">contact</a>
-                <div id="modal"></div>
-                <div class="modal-con modal1">
-                    <a href="javascript:;" class="close">X</a>
-                    <p class="title">contact</p>
-                    <div class="con">
-                        Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has
-                        been the industry's standard dummy text ever since the 1500s, when an unknown printer took a
-                        galley of type and scrambled it to make a type specimen book.
+            <ul>
+                <li><span>a</span></li>
+                <li><a onclick="sign_out()">Log Out</a></li>
+                <li><a href="/user/{{ user_info.username }}">My Profile</a></li>
+                <li><a href="/detail">My Habits</a></li>
+                <li><a >How to use</a></li>
+                <li>
+                    <a href="javascript:openModal('contact');" class="modal-btn">contact</a>
+                    <div id="modal"></div>
+                    <div class="modal-con modal1">
+                        <a href="javascript:;" class="close">X</a>
+                        <p class="title">contact</p>
+                        <div class="con">
+                            Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has
+                            been the industry's standard dummy text ever since the 1500s, when an unknown printer took a
+                            galley of type and scrambled it to make a type specimen book.
+                        </div>
                     </div>
-                </div>
-            </li>
-            <!-- <li>
+                </li>
+                <!-- <li>
                     <a class="button level-item has-text-centered is-sparta" aria-label="edit"
                         onclick='$("#modal-edit").addClass("is-active")' href="/user/{{ user_info.username }}">
                         프로필 수정&nbsp;&nbsp;&nbsp;
@@ -602,17 +504,13 @@
                     </div>
                     {% endif %}
                 </li> -->
-        </ul>
-    </aside>
+            </ul>
+        </aside>
 </div>
-
-
-<script src="https://unpkg.com/swiper@7/swiper-bundle.min.js"></script>
+<script src="https://unpkg.com/swiper/swiper-bundle.min.js"></script>
 <script>
     const swiper = new Swiper('.mySwiper', {
         cssMode: true,
-        slidesPerView: 3,
-        spaceBetween: 30,
         navigation: {
             nextEl: ".swiper-button-next",
             prevEl: ".swiper-button-prev",
@@ -623,59 +521,63 @@
         mousewheel: true,
         keyboard: true,
     });
+
+    function sign_out() {
+        $.removeCookie('mytoken', {path: '/'});
+        alert('로그아웃!')
+        window.location.href = "/login"
+    }
 </script>
-<script src="/main.js"></script>
+    <script src="/main.js"></script>
 
 
-<script>
-    let toggleNavStatus = false;
+    <script>
+        let toggleNavStatus = false;
 
-    let toggleNav = function () {
-        let getSidebar = document.querySelector(".nav-sidebar");
-        let getSidebarUl = document.querySelector(".nav-sidebar ul");
-        let getSidebarTitle = document.querySelector(".nav-sidebar span");
-        let getSidebarLinks = document.querySelectorAll(".nav-sidebar a");
+        let toggleNav = function () {
+            let getSidebar = document.querySelector(".nav-sidebar");
+            let getSidebarUl = document.querySelector(".nav-sidebar ul");
+            let getSidebarTitle = document.querySelector(".nav-sidebar span");
+            let getSidebarLinks = document.querySelectorAll(".nav-sidebar a");
 
-        if (toggleNavStatus === false) {
-            getSidebarUl.style.visibility = "visible";
-            getSidebar.style.width = "272px";
-            getSidebarTitle.style.opacity = "0.5";
+            if (toggleNavStatus === false) {
+                getSidebarUl.style.visibility = "visible";
+                getSidebar.style.width = "272px";
+                getSidebarTitle.style.opacity = "0.5";
 
-            let arrayLength = getSidebarLinks.length;
-            for (var i = 0; i < arrayLength; i++) {
-                getSidebarLinks[i].style.opacity = "1";
+                let arrayLength = getSidebarLinks.length;
+                for (var i = 0; i < arrayLength; i++) {
+                    getSidebarLinks[i].style.opacity = "1";
+                }
+                toggleNavStatus = true;
+            } else if (toggleNavStatus === true) {
+                getSidebar.style.width = "50px";
+                getSidebarTitle.style.opacity = "0";
+
+                let arrayLength = getSidebarLinks.length;
+                for (let i = 0; i < arrayLength; i++) {
+                    getSidebarLinks[i].style.opacity = "0";
+                }
+
+                getSidebarUl.style.visibility = "hidden";
+
+                toggleNavStatus = false;
             }
-            toggleNavStatus = true;
-        } else if (toggleNavStatus === true) {
-            getSidebar.style.width = "50px";
-            getSidebarTitle.style.opacity = "0";
 
-            let arrayLength = getSidebarLinks.length;
-            for (let i = 0; i < arrayLength; i++) {
-                getSidebarLinks[i].style.opacity = "0";
-            }
 
-            getSidebarUl.style.visibility = "hidden";
-
-            toggleNavStatus = false;
         }
 
 
-    }
+        function openModal(contact) {
+            document.get
+            $("#modal").fadeIn(300);
+            $("." + contact).fadeIn(300);
+        }
 
-
-    function openModal(contact) {
-        document.get
-        $("#modal").fadeIn(300);
-        $("." + contact).fadeIn(300);
-    }
-
-    $("#modal, .close").on('click', function () {
-        $("#modal").fadeOut(300);
-        $(".modal-con").fadeOut(300);
-    });
-</script>
-
+        $("#modal, .close").on('click', function () {
+            $("#modal").fadeOut(300);
+            $(".modal-con").fadeOut(300);
+        });
+    </script>
 </body>
-
 </html>

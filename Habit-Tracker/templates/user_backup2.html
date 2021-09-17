@@ -22,7 +22,7 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-cookie/1.4.1/jquery.cookie.js"></script>
     <script src="{{ url_for('static', filename='myjs.js') }}"></script>
 
-    <link rel="stylesheet" href="https://unpkg.com/swiper@7/swiper-bundle.min.css"/>
+    <link rel="stylesheet" href="https://unpkg.com/swiper/swiper-bundle.min.css"/>
 
 
     <style>
@@ -130,27 +130,250 @@
         .card-content {
             text-align: center;
         }
+
+        /*< !-- side bar style -->* {*/
+        /*    margin: 0;*/
+        /*    padding: 0;*/
+        /*}*/
+
+        a.button {
+            display: inline-block;
+            padding: 10px 20px;
+            text-decoration: none;
+            color: #fff;
+            background: #000;
+            margin: 20px;
+        }
+
+        #modal {
+            display: none;
+            position: fixed;
+            width: 100%;
+            height: 100%;
+            top: 0;
+            left: 0;
+            background: rgba(0, 0, 0, 0.3);
+        }
+
+        .modal-con {
+            display: none;
+            position: fixed;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            max-width: 60%;
+            min-height: 30%;
+            background: #fff;
+        }
+
+        .modal-con .title {
+            font-size: 20px;
+            padding: 20px;
+            background: gold;
+        }
+
+        .modal-con .con {
+            font-size: 15px;
+            line-height: 1.3;
+            padding: 30px;
+        }
+
+        .modal-con .close {
+            display: block;
+            position: absolute;
+            width: 30px;
+            height: 30px;
+            border-radius: 50%;
+            border: 3px solid #000;
+            text-align: center;
+            line-height: 30px;
+            text-decoration: none;
+            color: #000;
+            font-size: 20px;
+            font-weight: bold;
+            right: 10px;
+            top: 10px;
+        }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+        .top {
+            position: relative;
+        }
+
+        .wrap {
+            position: relative;
+        }
+
+        .nav-main {
+            display: flex;
+            flex-direction: row;
+            justify-content: space-between;
+            position: absolute;
+            top: 0;
+            width: 1150px;
+            height: 60px;
+            background: #fff;
+            display: flex;
+            flex-wrap: wrap;
+            z-index: 1000;
+        }
+
+        .btn-toggle-nav {
+            width: 55px;
+            height: 55px;
+            background-color: #E9B6AE;
+
+            background-image: url('/static/img_menu.png');
+            background-repeat: no-repeat;
+            background-size: contain;
+            background-position: center;
+            cursor: pointer;
+            margin-right: -22px;
+            border-radius: 25px;
+        }
+
+        .btn-toggle-nav:hover {
+            opacity: 0.5;
+        }
+
+        .nav-main ul {
+            display: flex;
+            flex-wrap: wrap;
+            padding-right: 15px;
+        }
+
+        .nav-main ul li {
+            list-style: none;
+            line-height: 60px;
+        }
+
+        .nav-main ul li a {
+            display: block;
+            height: 100%;
+            padding: 0 10px;
+            text-transform: uppercase;
+            text-emphasis: none;
+            /*columns: #111;*/
+            font-family: arial;
+            font-size: 16px;
+        }
+
+        .nav-sidebar {
+            position: absolute;
+            right: 0;
+            bottom: 0;
+            width: 50px;
+            height: 640px;
+            padding: 0 5px;
+            background-color: #E9B6AE;
+            z-index: 1000;
+            transition: all 0.3s ease-in-out;
+            border-bottom-right-radius: 20px;
+            border-radius: 20px;
+
+        }
+
+        .nav-sidebar ul {
+            padding-top: 15px;
+            overflow: hidden;
+            visibility: hidden;
+        }
+
+        .nav-sidebar ul li {
+            line-height: 60px;
+            list-style: none;
+        }
+
+        .nav-sidebar ul li span,
+        .nav-sidebar ul li a {
+            display: block;
+            height: 60px;
+            padding: 0 10px;
+            text-decoration: none;
+            text-transform: uppercase;
+            color: #111;
+            font-family: Arial;
+            font-size: 16px;
+            white-space: nowrap;
+            opacity: 0;
+            transition: all 0.3s ease-in-out;
+        }
+
+        .nav-sidebar ul li a:hover {
+            background-color: #eee;
+            border-radius: 30px;
+        }
     </style>
 
     <script>
         $(document).ready(function () {
-            {#get_posts("{{ user_info.username }}")#}
-            {#window.location.replace("/user/{{user_info.username }}")#}
+            showStar()
         })
 
-
-        function get_userlist() {
+        function showStar() {
             $.ajax({
-                type: "GET", // GET 방식으로 요청한다.
-                url: "/user/",
-                data: {}, // 요청하면서 함께 줄 데이터 (GET 요청시엔 비워두세요)
-                success: function (response) { // 서버에서 준 결과를 response라는 변수에 담음
-                    console.log(response) // 서버에서 준 결과를 이용해서 나머지 코드를 작성
+                type: 'GET',
+                url: '/user',
+                data: {},
+                success: function (response) {
+                    let user_feat = response['user_feat']
+                    console.log(user_feat)
+                    $('#cards-box').empty()
+                    for (let i = 0; i < user_feat.length; i++) {
+                        let id = user_feat[i]['username']
+                        let img_url = user_feat[i]['profile_pic_real']
+                        let nickname = user_feat[i]['profile_name']
+                        let info = user_feat[i]['profile_info']
+                        let img_url_before = "url_for('static', filename="
+                        let img_url_after = ")"
+                        let finish = img_url_before + img_url + img_url_after
+
+                        console.log(finish)
+                        let temp_html = `
+                    <div class="swiper-slide">
+                    <div class="card">
+                              <div class="card-image">
+                            <figure class="image is-4x3" style="width: 150px; margin: 5px auto;">
+                                <img class="is-rounded"
+                                     src="${finish}"
+                                     alt="Placeholder image">
+                            </figure>
+                        </div>
+                        <div class="card-content">
+                            <div class="media">
+                                <div class="media-left">
+                                </div>
+                                <div class="media-content">
+                                    <p class="title is-4">${nickname}</p>
+                                    <p class="subtitle is-6">
+                                        <a href="user.html">@${id}</a>
+                                    </p>
+                                </div>
+                            </div>
+
+                            <div class="content">
+                               ${info}
+                            </div>
+                        </div>`
+                        $('#cards-box').append(temp_html)
+                    }
+
                 }
-            })
+            });
         }
-
-
         function update_profile() {
             let name = $('#input-name').val()
             let file = $('#input-pic')[0].files[0]
@@ -172,20 +395,7 @@
                     if (response["result"] == "success") {
                         alert(response["msg"])
                         window.location.reload()
-
                     }
-                }
-            });
-        }
-
-        function main_move() {
-            $.ajax({
-                type: 'GET',
-                url: '/detail',
-                data: {},
-                success: function (response) {
-                    $.cookie('mytoken', response['token'], {path: '/'});
-                    window.location.replace("/detail")
                 }
             });
         }
@@ -194,14 +404,14 @@
 </head>
 
 <body>
+
 <div class="wrap">
     <div class="top">
         <div class="logo">
         </div>
-        <button onclick="sign_out2()" class="button is-danger is-rounded">마이페이지 나가기</button>
         <a class="button level-item has-text-centered is-sparta" aria-label="edit"
-           onclick='$("#modal-edit").addClass("is-active")'>
-            프로필 수정&nbsp;&nbsp;&nbsp;
+           onclick='$("#modal-edit").addClass("is-active")' href="/user/{{ user_info.username }}">
+            마이페이지 이동&nbsp;&nbsp;&nbsp;
             <span class="icon is-small"><i class="fa fa-pencil" aria-hidden="true"></i></span>
         </a>
         <button onclick="sign_out()" class="button is-danger is-rounded">Log Out</button>
@@ -275,57 +485,36 @@
 
     </div>
     <div class="bottom">
-        <div class="card">
-            <div class="card-image">
-                <figure class="image is-4x3" style="width: 150px; margin: 5px auto;">
-                    <img class="is-rounded"
-                         src="{{ url_for('static', filename=user_info.profile_pic_real) }}"
-                         alt="Placeholder image">
-                </figure>
+        <div class="swiper mySwiper">
+            <div id=cards-box class="swiper-wrapper">
             </div>
-
-            <div class="card-content">
-                <div class="media">
-                    <div class="media-left">
-                    </div>
-                    <div class="media-content">
-                        <p class="title is-4">{{ user_info.profile_name }}</p>
-                        <p class="subtitle is-6">
-                            <a href="user_backup.html">@{{ user_info.username }}</a>
-                        </p>
-                    </div>
-                </div>
-
-                <div class="content">
-                    {{ user_info.profile_info }}
-                    <br>
-                    <br>
-{#                    <time datetime="2021-09-15"></time>#}
-                </div>
-            </div>
-
-            <div class="button" onclick="main_move()">
-                <button>습관체크하러가기</button>
-            </div>
+            <div class="swiper-pagination"></div>
+            <div class="swiper-button-prev"></div>
+            <div class="swiper-button-next"></div>
         </div>
     </div>
+
 </div>
+<script src="https://unpkg.com/swiper/swiper-bundle.min.js"></script>
 <script>
-    $(document).ready(function () {
-        {#get_posts("{{ user_info.username }}")#}
-    })
+    const swiper = new Swiper('.mySwiper', {
+        cssMode: true,
+        navigation: {
+            nextEl: ".swiper-button-next",
+            prevEl: ".swiper-button-prev",
+        },
+        pagination: {
+            el: ".swiper-pagination",
+        },
+        mousewheel: true,
+        keyboard: true,
+    });
 
     function sign_out() {
         $.removeCookie('mytoken', {path: '/'});
         alert('로그아웃!')
         window.location.href = "/login"
     }
-
-    function sign_out2() {
-        window.location.href = "/"
-    }
-
 </script>
 </body>
-
 </html>
