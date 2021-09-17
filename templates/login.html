@@ -3,8 +3,10 @@
 
 <head>
     <!-- Webpage Title -->
-    <title>Log In | SWEETER</title>
-
+    <title>Habit Tracker | Login</title>
+    <meta property="og:title" content="내 사이트의 제목"/>
+    <meta property="og:description" content="보고 있는 페이지의 내용 요약"/>
+    <meta property="og:image" content="{{ url_for('static', filename='ogimage.png') }}"/>
     <!-- Required meta tags -->
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
@@ -15,6 +17,8 @@
     <link href="//maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Jua&display=swap" rel="stylesheet">
+
     <link href="https://fonts.googleapis.com/css2?family=Nanum+Myeongjo&family=Noto+Sans+KR:wght@100&display=swap"
           rel="stylesheet">
 
@@ -26,6 +30,8 @@
         * {
             box-sizing: border-box;
             margin: 0;
+            font-family: 'Jua', sans-serif;
+            font-size: 18px;
         }
 
         .wrap {
@@ -42,6 +48,15 @@
             background-size: cover;
             background-position: center center;
             box-shadow: 5px 5px 10px 10px #9E9E9E;
+        }
+
+        .mb-3 {
+            color: darkslategray;
+        }
+
+        .button:hover {
+            box-shadow: 1px 1px 2px 2px #ED8975;
+            transition: all 0.3s ease-in-out;
         }
 
         .img {
@@ -99,6 +114,7 @@
         .input {
             height: 35px;
         }
+
     </style>
 
     <script>
@@ -148,7 +164,7 @@
             let password = $("#input-password").val()
             let password2 = $("#input-password2").val()
             let nickname = $("#input-nickname").val()
-            console.log(username, password, password2,nickname)
+            console.log(username, password, password2, nickname)
 
 
             if ($("#help-id").hasClass("is-danger")) {
@@ -185,8 +201,8 @@
                 $("#sign-up-nickname").text("닉네임을 입력해주세요.").removeClass("is-safe").addClass("is-danger")
                 $("#input-nickname").focus()
                 return;
-            } else{
-                 $("#sign-up-nickname").text("닉네임을 사용할 수 있습니다.").addClass("is-success")
+            } else {
+                $("#sign-up-nickname").text("닉네임을 사용할 수 있습니다.").addClass("is-success")
             }
 
             $.ajax({
@@ -294,7 +310,8 @@
                         <div class="field">
                             <div class="control has-icons-left" style="width:100%">
                                 <input id="input-nickname" class="input" type="text" placeholder="닉네임">
-                                <span class="icon is-small is-left"><i class="fa fa-id-card" aria-hidden="true"></i></span>
+                                <span class="icon is-small is-left"><i class="fa fa-id-card"
+                                                                       aria-hidden="true"></i></span>
                             </div>
                             <p id="sign-up-nickname" class="help is-hidden">닉네임은 2-10자까지 입력 가능합니다.</p>
                         </div>

@@ -3,7 +3,7 @@
 
 <head>
     <!-- Webpage Title -->
-    <title>Habit Tracker | 프로필 상세페이지</title>
+    <title>Habit Tracker | Habit page</title>
 
     <!-- Required meta tags -->
     <meta charset="utf-8">
@@ -299,6 +299,7 @@
     <script>
         $(document).ready(function () {
             console.log('it works')
+            showHabit()
         })
 
         function likeHabit(habit) {
@@ -312,7 +313,17 @@
                 }
             });
         }
-
+        function minusHabit(habit) {
+            $.ajax({
+                type: 'POST',
+                url: '/habit/hate',
+                data: {habit_give: habit},
+                success: function (response) {
+                    alert(response['msg']);
+                    window.location.reload()
+                }
+            });
+        }
         function deleteHabit(habit) {
             $.ajax({
                 type: 'POST',
@@ -330,7 +341,7 @@
             $.ajax({
                 type: "POST",
                 url: "/habit",
-                data: {new_habit_give: new_habit},
+                data: {new_habit_give: new_habit , username : },
                 success: function (response) {
                     alert(response["msg"])
                     window.location.reload();
@@ -362,6 +373,9 @@
                                                     <a href="#" onclick="likeHabit('${habit}')" class="card-footer-item has-text-info">
                                                         습관 달성<span class="icon"><i class="fas fa-thumbs-up"></i></span>
                                                     </a>
+                                                    <a href="#" onclick="minusHabit('${habit}')" class="card-footer-item has-text-danger">
+                                                        습관 안함 <span class="icon"><i class="fas fa-ban"></i></span>
+                                                    </a>
                                                     <a href="#" onclick="deleteHabit('${habit}')" class="card-footer-item has-text-danger">
                                                         습관 삭제 <span class="icon"><i class="fas fa-ban"></i></span>
                                                     </a>
@@ -369,7 +383,7 @@
                                             </div>`
                         let temp_html2 = `<div id=cards-box${i + 1} class="swiper-slide">
                         </div>`
-                        $('#cards-box0').append(temp_html)
+                        $(card_box).append(temp_html)
                         $('#slide-box0').append(temp_html2)
                     }
 

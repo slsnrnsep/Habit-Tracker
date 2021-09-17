@@ -3,7 +3,7 @@
 
 <head>
     <!-- Webpage Title -->
-    <title>Home | SWEETER</title>
+    <title>Habit Tracker | My page</title>
 
     <!-- Required meta tags -->
     <meta charset="utf-8">
@@ -15,8 +15,8 @@
     <link href="//maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Nanum+Myeongjo&family=Noto+Sans+KR:wght@100&display=swap"
-          rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Jua&display=swap" rel="stylesheet">
+
     <!-- JS -->
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-cookie/1.4.1/jquery.cookie.js"></script>
@@ -58,28 +58,21 @@
             border-radius: 20px;
         }
 
-        .button.is-sparta {
-            height: 35px;
-            background-color: #ED8975;
-            border-color: transparent;
-            color: #fff !important;
+        .button {
+            font-family: 'Jua', sans-serif;
+            border: 1px solid #ED8975;
         }
 
-        .button.is-sparta.is-outlined {
-            background-color: transparent;
-            border-color: #ED8975;
-            color: #ED8975 !important;
-            height: 35px;
-        }
-
-        .help {
-            color: gray;
+        .button:hover {
+            box-shadow: 1px 1px 2px 2px #ED8975;
+            transition: all 0.3s ease-in-out;
         }
 
         .button.is-danger.is-rounded {
-            background-color: #ED8975 !important;
+            background-color: white;
+            border: 1px solid #ED8975;
+            color: #ED8975;
         }
-
         .top {
             display: flex;
             flex-direction: row;
@@ -98,9 +91,11 @@
             width: 1200px;
             height: 700px;
         }
-        .profile-edit-btn{
+
+        .profile-edit-btn {
             width: 200px;
-        margin: 0 auto;     }
+            margin: 0 auto;
+        }
 
         .card {
             display: flex;
@@ -130,53 +125,43 @@
         .card-content {
             text-align: center;
         }
-        .bottom-footer{
+
+        .bottom-footer {
             position: relative;
         }
+
         .bottom-footer button {
             position: absolute;
             bottom: -250px;
             right: -400px;
-            }
+        }
 
 
+        section {
+            position: absolute;
+            width: 1200px;
+            height: 600px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
 
+        }
 
+        svg {
+            border-radius: 30px;
+        }
 
+        section h2 {
+            position: relative;
+            font-size: 6em;
+            color: rgb(44, 17, 17);
+        }
 
-
-
-
-
-
-
-
-section {
-    position: absolute;
-    width: 1200px;
-    height: 600px;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-
-}
-
-svg {
-    border-radius: 30px;
-}
-
-section h2 {
-    position: relative;
-    font-size: 6em;
-    color: rgb(44, 17, 17);
-}
-
-section svg {
-    position:absolute;
-    top: 0;
-    left: 0;
-}
-
+        section svg {
+            position: absolute;
+            top: 0;
+            left: 0;
+        }
 
 
     </style>
@@ -320,59 +305,61 @@ section svg {
 
     </div>
     <div class="bottom">
-      <section>
-        <svg width="100%" height="100%" version="1.1" xmlns="http://www.w3.org/2000/svg"><defs></defs><path id="myID" d=""/></svg>
-        <div class="bottom-body">
-            <div class="card">
-                <div class="card-image">
-                    <figure class="image is-4x3" style="width: 100px; margin: 5px auto;">
-                        <img class="is-rounded my_img" width="100px" height="100px"
-                             src="{{ url_for('static', filename=user_info.profile_pic_real) }}"
-                             alt="Placeholder image">
-                    </figure>
-                </div>
-
-                <div class="card-content">
-                    <div class="media">
-                        <div class="media-left">
-                        </div>
-                        <div class="media-content">
-                            <p class="title is-4">{{ user_info.profile_name }}</p>
-                            <p class="subtitle is-6">
-                                <a href="user_backup.html">@{{ user_info.username }}</a>
-                            </p>
-                        </div>
+        <section>
+            <svg width="100%" height="100%" version="1.1" xmlns="http://www.w3.org/2000/svg">
+                <defs></defs>
+                <path id="myID" d=""/>
+            </svg>
+            <div class="bottom-body">
+                <div class="card">
+                    <div class="card-image">
+                        <figure class="image is-4x3" style="width: 100px; margin: 5px auto;">
+                            <img class="is-rounded my_img" width="100px" height="100px"
+                                 src="{{ url_for('static', filename=user_info.profile_pic_real) }}"
+                                 alt="Placeholder image">
+                        </figure>
                     </div>
 
-                    <div class="content">
-                        {{ user_info.profile_info }}
-                        <br>
-                        <br>
-    {#                    <time datetime="2021-09-15"></time>#}
+                    <div class="card-content">
+                        <div class="media">
+                            <div class="media-left">
+                            </div>
+                            <div class="media-content">
+                                <p class="title is-4">{{ user_info.profile_name }}</p>
+                                <p class="subtitle is-6">
+                                    <a href="user_backup.html">@{{ user_info.username }}</a>
+                                </p>
+                            </div>
+                        </div>
+
+                        <div class="content">
+                            {{ user_info.profile_info }}
+                            <br>
+                            <br>
+                            {#                    <time datetime="2021-09-15"></time>#}
+                        </div>
+                    </div>
+                    <div class="profile-edit-btn">
+
+                        <a class="button level-item has-text-centered is-sparta" aria-label="edit"
+                           onclick='$("#modal-edit").addClass("is-active")'>
+                            프로필 수정&nbsp;&nbsp;&nbsp;
+                            <span class="icon is-small"><i class="fa fa-pencil" aria-hidden="true"></i></span>
+                        </a>
                     </div>
                 </div>
-    <div class="profile-edit-btn">
-
-        <a class="button level-item has-text-centered is-sparta" aria-label="edit"
-        onclick='$("#modal-edit").addClass("is-active")'>
-         프로필 수정&nbsp;&nbsp;&nbsp;
-         <span class="icon is-small"><i class="fa fa-pencil" aria-hidden="true"></i></span>
-     </a>
-    </div>
             </div>
-          </div>
 
             <div class="bottom-footer">
                 <button onclick="sign_out2()" class="button is-danger is-rounded">마이페이지 나가기</button>
             </div>
-      </section>
+        </section>
     </div>
 </div>
 <script>
     $(document).ready(function () {
         {#get_posts("{{ user_info.username }}")#}
     })
-
 
 
     function sign_out2() {
@@ -382,296 +369,297 @@ section svg {
 </script>
 
 
-<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.1.1/gsap.min.js" integrity="sha512-0RYHqoOARmpxNEw+esxNHXaPoXWU36swC8a5BgmnexZNmOhDewCvKRNWitJiwf40o8JUsg831Uu/cRIN7sCdKA==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
-	<script src="https://code.jquery.com/jquery-3.6.0.js" integrity="sha256-H+K7U5CnXl1h5ywQfKtSj8PCmoN9aaq30gDh27Xc0jk=" crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.1.1/gsap.min.js"
+        integrity="sha512-0RYHqoOARmpxNEw+esxNHXaPoXWU36swC8a5BgmnexZNmOhDewCvKRNWitJiwf40o8JUsg831Uu/cRIN7sCdKA=="
+        crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+<script src="https://code.jquery.com/jquery-3.6.0.js" integrity="sha256-H+K7U5CnXl1h5ywQfKtSj8PCmoN9aaq30gDh27Xc0jk="
+        crossorigin="anonymous"></script>
 
-    <script>
-		/*
- *   Wavify
- *   JavaScript library to make some nice waves
- *   by peacepostman @ potion
- */
-function wavify(wave_element, options) {
-	if ("undefined" === typeof options) options = {};
+<script>
+    /*
+*   Wavify
+*   JavaScript library to make some nice waves
+*   by peacepostman @ potion
+*/
+    function wavify(wave_element, options) {
+        if ("undefined" === typeof options) options = {};
 
-	//  Options
-	//
-	//
-	var settings = Object.assign(
-	  {},
-	  {
-		container: options.container ? options.container : "body",
-		// Height of wave
-		height: 200,
-		// Amplitude of wave
-		amplitude: 100,
-		// Animation speed
-		speed: 0.15,
-		// Total number of articulation in wave
-		bones: 3,
-		// Color
-		color: "rgba(255,255,255, 0.20)"
-	  },
-	  options
-	);
+        //  Options
+        //
+        //
+        var settings = Object.assign(
+            {},
+            {
+                container: options.container ? options.container : "body",
+                // Height of wave
+                height: 200,
+                // Amplitude of wave
+                amplitude: 100,
+                // Animation speed
+                speed: 0.15,
+                // Total number of articulation in wave
+                bones: 3,
+                // Color
+                color: "rgba(255,255,255, 0.20)"
+            },
+            options
+        );
 
-	var wave = wave_element,
-	  width = document.querySelector(settings.container).getBoundingClientRect()
-		.width,
-	  height = document.querySelector(settings.container).getBoundingClientRect()
-		.height,
-	  points = [],
-	  lastUpdate,
-	  totalTime = 0,
-	  animationInstance = false,
-	  tweenMaxInstance = false;
+        var wave = wave_element,
+            width = document.querySelector(settings.container).getBoundingClientRect()
+                .width,
+            height = document.querySelector(settings.container).getBoundingClientRect()
+                .height,
+            points = [],
+            lastUpdate,
+            totalTime = 0,
+            animationInstance = false,
+            tweenMaxInstance = false;
 
-	//  Allow new settings, avoid setting new container for logic purpose please :)
-	//
-	function rebuilSettings(params) {
-	  settings = Object.assign({}, settings, params);
-	}
+        //  Allow new settings, avoid setting new container for logic purpose please :)
+        //
+        function rebuilSettings(params) {
+            settings = Object.assign({}, settings, params);
+        }
 
-	function drawPoints(factor) {
-	  var points = [];
+        function drawPoints(factor) {
+            var points = [];
 
-	  for (var i = 0; i <= settings.bones; i++) {
-		var x = (i / settings.bones) * width;
-		var sinSeed =
-		  (factor + (i + (i % settings.bones))) * settings.speed * 100;
-		var sinHeight = Math.sin(sinSeed / 100) * settings.amplitude;
-		var yPos = Math.sin(sinSeed / 100) * sinHeight + settings.height;
-		points.push({ x: x, y: yPos });
-	  }
+            for (var i = 0; i <= settings.bones; i++) {
+                var x = (i / settings.bones) * width;
+                var sinSeed =
+                    (factor + (i + (i % settings.bones))) * settings.speed * 100;
+                var sinHeight = Math.sin(sinSeed / 100) * settings.amplitude;
+                var yPos = Math.sin(sinSeed / 100) * sinHeight + settings.height;
+                points.push({x: x, y: yPos});
+            }
 
-	  return points;
-	}
+            return points;
+        }
 
-	function drawPath(points) {
-	  var SVGString = "M " + points[0].x + " " + points[0].y;
+        function drawPath(points) {
+            var SVGString = "M " + points[0].x + " " + points[0].y;
 
-	  var cp0 = {
-		x: (points[1].x - points[0].x) / 2,
-		y: points[1].y - points[0].y + points[0].y + (points[1].y - points[0].y)
-	  };
+            var cp0 = {
+                x: (points[1].x - points[0].x) / 2,
+                y: points[1].y - points[0].y + points[0].y + (points[1].y - points[0].y)
+            };
 
-	  SVGString +=
-		" C " +
-		cp0.x +
-		" " +
-		cp0.y +
-		" " +
-		cp0.x +
-		" " +
-		cp0.y +
-		" " +
-		points[1].x +
-		" " +
-		points[1].y;
+            SVGString +=
+                " C " +
+                cp0.x +
+                " " +
+                cp0.y +
+                " " +
+                cp0.x +
+                " " +
+                cp0.y +
+                " " +
+                points[1].x +
+                " " +
+                points[1].y;
 
-	  var prevCp = cp0;
-	  var inverted = -1;
+            var prevCp = cp0;
+            var inverted = -1;
 
-	  for (var i = 1; i < points.length - 1; i++) {
-		var cpLength = Math.sqrt(prevCp.x * prevCp.x + prevCp.y * prevCp.y);
-		var cp1 = {
-		  x: points[i].x - prevCp.x + points[i].x,
-		  y: points[i].y - prevCp.y + points[i].y
-		};
+            for (var i = 1; i < points.length - 1; i++) {
+                var cpLength = Math.sqrt(prevCp.x * prevCp.x + prevCp.y * prevCp.y);
+                var cp1 = {
+                    x: points[i].x - prevCp.x + points[i].x,
+                    y: points[i].y - prevCp.y + points[i].y
+                };
 
-		SVGString +=
-		  " C " +
-		  cp1.x +
-		  " " +
-		  cp1.y +
-		  " " +
-		  cp1.x +
-		  " " +
-		  cp1.y +
-		  " " +
-		  points[i + 1].x +
-		  " " +
-		  points[i + 1].y;
-		prevCp = cp1;
-		inverted = -inverted;
-	  }
+                SVGString +=
+                    " C " +
+                    cp1.x +
+                    " " +
+                    cp1.y +
+                    " " +
+                    cp1.x +
+                    " " +
+                    cp1.y +
+                    " " +
+                    points[i + 1].x +
+                    " " +
+                    points[i + 1].y;
+                prevCp = cp1;
+                inverted = -inverted;
+            }
 
-	  SVGString += " L " + width + " " + height;
-	  SVGString += " L 0 " + height + " Z";
-	  return SVGString;
-	}
+            SVGString += " L " + width + " " + height;
+            SVGString += " L 0 " + height + " Z";
+            return SVGString;
+        }
 
-	//  Draw function
-	//
-	//
-	function draw() {
-	  var now = window.Date.now();
+        //  Draw function
+        //
+        //
+        function draw() {
+            var now = window.Date.now();
 
-	  if (lastUpdate) {
-		var elapsed = (now - lastUpdate) / 1000;
-		lastUpdate = now;
+            if (lastUpdate) {
+                var elapsed = (now - lastUpdate) / 1000;
+                lastUpdate = now;
 
-		totalTime += elapsed;
+                totalTime += elapsed;
 
-		var factor = totalTime * Math.PI;
-		tweenMaxInstance = TweenMax.to(wave, settings.speed, {
-		  attr: {
-			d: drawPath(drawPoints(factor))
-		  },
-		  ease: Power1.easeInOut
-		});
-	  } else {
-		lastUpdate = now;
-	  }
+                var factor = totalTime * Math.PI;
+                tweenMaxInstance = TweenMax.to(wave, settings.speed, {
+                    attr: {
+                        d: drawPath(drawPoints(factor))
+                    },
+                    ease: Power1.easeInOut
+                });
+            } else {
+                lastUpdate = now;
+            }
 
-	  animationInstance = requestAnimationFrame(draw);
-	}
+            animationInstance = requestAnimationFrame(draw);
+        }
 
-	//  Pure js debounce function to optimize resize method
-	//
-	//
-	function debounce(func, wait, immediate) {
-	  var timeout;
-	  return function() {
-		var context = this,
-		  args = arguments;
-		clearTimeout(timeout);
-		timeout = setTimeout(function() {
-		  timeout = null;
-		  if (!immediate) func.apply(context, args);
-		}, wait);
-		if (immediate && !timeout) func.apply(context, args);
-	  };
-	}
+        //  Pure js debounce function to optimize resize method
+        //
+        //
+        function debounce(func, wait, immediate) {
+            var timeout;
+            return function () {
+                var context = this,
+                    args = arguments;
+                clearTimeout(timeout);
+                timeout = setTimeout(function () {
+                    timeout = null;
+                    if (!immediate) func.apply(context, args);
+                }, wait);
+                if (immediate && !timeout) func.apply(context, args);
+            };
+        }
 
-	//  Redraw for resize with debounce
-	//
-	var redraw = debounce(function() {
-	  pause();
-	  points = [];
-	  totalTime = 0;
-	  width = document.querySelector(settings.container).getBoundingClientRect()
-		.width;
-	  height = document.querySelector(settings.container).getBoundingClientRect()
-		.height;
-	  lastUpdate = false;
-	  play();
-	}, 250);
+        //  Redraw for resize with debounce
+        //
+        var redraw = debounce(function () {
+            pause();
+            points = [];
+            totalTime = 0;
+            width = document.querySelector(settings.container).getBoundingClientRect()
+                .width;
+            height = document.querySelector(settings.container).getBoundingClientRect()
+                .height;
+            lastUpdate = false;
+            play();
+        }, 250);
 
-	function boot() {
-	  if (!animationInstance) {
-		tweenMaxInstance = TweenMax.set(wave, { attr: { fill: settings.color } });
-		play();
-		window.addEventListener("resize", redraw);
-	  }
-	}
+        function boot() {
+            if (!animationInstance) {
+                tweenMaxInstance = TweenMax.set(wave, {attr: {fill: settings.color}});
+                play();
+                window.addEventListener("resize", redraw);
+            }
+        }
 
-	function reboot(options) {
-	  kill();
-	  if (typeof options !== undefined) {
-		rebuilSettings(options);
-	  }
-	  tweenMaxInstance = TweenMax.set(wave, { attr: { fill: settings.color } });
-	  play();
-	  window.addEventListener("resize", redraw);
-	}
+        function reboot(options) {
+            kill();
+            if (typeof options !== undefined) {
+                rebuilSettings(options);
+            }
+            tweenMaxInstance = TweenMax.set(wave, {attr: {fill: settings.color}});
+            play();
+            window.addEventListener("resize", redraw);
+        }
 
-	function play() {
-	  if (!animationInstance) {
-		animationInstance = requestAnimationFrame(draw);
-	  }
-	}
+        function play() {
+            if (!animationInstance) {
+                animationInstance = requestAnimationFrame(draw);
+            }
+        }
 
-	function pause() {
-	  if (animationInstance) {
-		cancelAnimationFrame(animationInstance);
-		animationInstance = false;
-	  }
-	}
+        function pause() {
+            if (animationInstance) {
+                cancelAnimationFrame(animationInstance);
+                animationInstance = false;
+            }
+        }
 
-	function updateColor(options) {
-	  if (typeof options.timing === undefined) {
-		options.timing = 1;
-	  }
-	  if (typeof options.color === undefined) {
-		options.color = settings.color;
-	  }
-	  tweenMaxInstance = TweenMax.to(wave, parseInt(options.timing), {
-		attr: { fill: options.color },
-		onComplete: function() {
-		  if (
-			typeof options.onComplete !== undefined &&
-			{}.toString.call(options.onComplete) === "[object Function]"
-		  ) {
-			options.onComplete();
-		  }
-		}
-	  });
-	}
+        function updateColor(options) {
+            if (typeof options.timing === undefined) {
+                options.timing = 1;
+            }
+            if (typeof options.color === undefined) {
+                options.color = settings.color;
+            }
+            tweenMaxInstance = TweenMax.to(wave, parseInt(options.timing), {
+                attr: {fill: options.color},
+                onComplete: function () {
+                    if (
+                        typeof options.onComplete !== undefined &&
+                        {}.toString.call(options.onComplete) === "[object Function]"
+                    ) {
+                        options.onComplete();
+                    }
+                }
+            });
+        }
 
-	function kill() {
-	  if (animationInstance) {
-		pause();
-		tweenMaxInstance.kill();
-		tweenMaxInstance = TweenMax.set(wave, {
-		  x: 0,
-		  y: 0,
-		  rotation: 0,
-		  opacity: 0,
-		  clearProps: "all",
-		  attr: {
-			d: "M0,0",
-			fill: ""
-		  }
-		});
-		window.removeEventListener("resize", redraw);
-		animationInstance = false;
-	  }
-	}
+        function kill() {
+            if (animationInstance) {
+                pause();
+                tweenMaxInstance.kill();
+                tweenMaxInstance = TweenMax.set(wave, {
+                    x: 0,
+                    y: 0,
+                    rotation: 0,
+                    opacity: 0,
+                    clearProps: "all",
+                    attr: {
+                        d: "M0,0",
+                        fill: ""
+                    }
+                });
+                window.removeEventListener("resize", redraw);
+                animationInstance = false;
+            }
+        }
 
-	//  Boot Wavify
-	//
-	boot();
+        //  Boot Wavify
+        //
+        boot();
 
-	return {
-	  reboot: reboot,
-	  play: play,
-	  pause: pause,
-	  kill: kill,
-	  updateColor: updateColor
-	};
-  }
-
-
+        return {
+            reboot: reboot,
+            play: play,
+            pause: pause,
+            kill: kill,
+            updateColor: updateColor
+        };
+    }
 
 
-  /*
- *   Wavify
- *   Jquery Plugin to make some nice waves
- *   by peacepostman @ potion
- */
-(function($) {
-	$.fn.wavify = function(options) {
-	  if ("function" !== typeof wavify) {
-		console.error(
-		  "wavify is not a function. Be sure to include 'wavify.js' before you include 'jquery.wavify.js'."
-		);
-		throw "Error: wavify is not a function";
-	  }
+    /*
+   *   Wavify
+   *   Jquery Plugin to make some nice waves
+   *   by peacepostman @ potion
+   */
+    (function ($) {
+        $.fn.wavify = function (options) {
+            if ("function" !== typeof wavify) {
+                console.error(
+                    "wavify is not a function. Be sure to include 'wavify.js' before you include 'jquery.wavify.js'."
+                );
+                throw "Error: wavify is not a function";
+            }
 
-	  return wavify(this, options);
-	};
-  })(jQuery);
+            return wavify(this, options);
+        };
+    })(jQuery);
 
-  // For jQuery
-var myWave = $('#myID').wavify({
-	height: 300,
-	bones: 3,
-	amplitude: 40,
-	color: 'rgba(246, 195, 185, .8)',
-	speed: .25
-  });
-	</script>
+    // For jQuery
+    var myWave = $('#myID').wavify({
+        height: 300,
+        bones: 3,
+        amplitude: 40,
+        color: 'rgba(246, 195, 185, .8)',
+        speed: .25
+    });
+</script>
 </body>
 
 </html>

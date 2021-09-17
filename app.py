@@ -257,17 +257,13 @@ def write_habit():
 
     return jsonify({'msg': '습관 저장 완료!'})
 
-@app.route('/habit', methods=['GET'])
-def read_habit():
-    habits = list(db.habit.find({}, {'_id': False}))
-    return jsonify({'all_habits': habits})
-
 
 # API 역할을 하는 부분
 @app.route('/habit', methods=['GET'])
+
 def show_habit():
     habits = list(db.habit.find({}, {'_id': False}).sort('like', -1))
-    return jsonify({'habits': habits})
+    return jsonify({'all_habits': habits})
 
 
 @app.route('/habit/like', methods=['POST'])
@@ -283,6 +279,18 @@ def like_habit():
 
     return jsonify({'msg': '슴관라이크 완료!'})
 
+@app.route('/habit/hate', methods=['POST'])
+def hate_habit():
+    habit_receive = request.form['habit_give']
+
+    target_habit = db.habit.find_one({'habit': habit_receive})
+    current_like = target_habit['like']
+
+    new_like = current_like - 1
+
+    db.habit.update_one({'habit': habit_receive}, {'$set': {'like': new_like}})
+
+    return jsonify({'msg': '슴관hate 완료!'})
 
 @app.route('/habit/delete', methods=['POST'])
 def delete_habit():
