@@ -303,6 +303,10 @@
             background-color: #eee;
             border-radius: 30px;
         }
+        .is-rounded my_img{
+            width : 100px;
+            height: 100px;
+        }
     </style>
 
     <script>
@@ -324,17 +328,17 @@
                         let img_url = user_feat[i]['profile_pic_real']
                         let nickname = user_feat[i]['profile_name']
                         let info = user_feat[i]['profile_info']
-                        let img_url_before = "url_for('static', filename="
-                        let img_url_after = ")"
-                        let finish = img_url_before + img_url + img_url_after
+                        let img_url_before = "/static/"
+                        let img_url_after = "/profile_pics/"
+                        let finish = img_url_before + img_url
 
                         console.log(finish)
                         let temp_html = `
                     <div class="swiper-slide">
                     <div class="card">
                               <div class="card-image">
-                            <figure class="image is-4x3" style="width: 150px; margin: 5px auto;">
-                                <img class="is-rounded"
+                            <figure class="image is-4x3" style="width: 100px; margin: auto;">
+                                <img class="is-rounded my_img" width="100px" height="100px"
                                      src="${finish}"
                                      alt="Placeholder image">
                             </figure>
@@ -344,7 +348,7 @@
                                 <div class="media-left">
                                 </div>
                                 <div class="media-content">
-                                    <p class="title is-4">${nickname}</p>
+                                    <p class="title is-4" >${nickname}</p>
                                     <p class="subtitle is-6">
                                         <a href="user.html">@${id}</a>
                                     </p>
@@ -402,14 +406,10 @@
 
         </div>
     <div class="bottom">
-        <div class="swiper mySwiper">
-            <div id=cards-box class="swiper-wrapper">
+            <div class="swiper mySwiper">
+                <div id=cards-box class="swiper-wrapper">
+                </div>
             </div>
-            <div class="swiper-pagination"></div>
-            <div class="swiper-button-prev"></div>
-            <div class="swiper-button-next"></div>
-        </div>
-    </div>
     <aside class="nav-sidebar">
             <ul>
                 <li><span>a</span></li>
