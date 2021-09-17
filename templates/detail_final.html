@@ -19,7 +19,9 @@
     <link href="https://fonts.googleapis.com/css2?family=Nanum+Pen+Script&display=swap" rel="stylesheet">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Jua&display=swap" rel="stylesheet">
     <!-- JS -->
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-cookie/1.4.1/jquery.cookie.js"></script>
@@ -29,19 +31,22 @@
         * {
             box-sizing: border-box;
             margin: 0;
+                        font-family: 'Jua', sans-serif;
+
         }
+
+
 
         .wrap {
             display: flex;
             flex-direction: column;
-            justify-content: space-between;
+            justify-content: center;
             align-items: center;
             width: 1200px;
             height: 700px;
             margin: 70px auto;
             border-radius: 30px;
             box-shadow: 5px 5px 10px 10px #9E9E9E;
-            background-image: url('../static/background-img.png');
             background-size: cover;
             background-position: center center;
             background-repeat: no-repeat;
@@ -55,15 +60,18 @@
             width: 1200px;
             height: 20px;
             padding: 30px;
+            margin-bottom: 70px;
         }
 
-        .top .logo {
+        .logo {
             background-image: url('../static/logo.png');
             background-size: cover;
             background-repeat: no-repeat;
             background-position: center;
-            width: 100px;
-            height: 20px;
+            width: 200px;
+            height: 50px;
+            margin: 15px 0;
+
         }
 
         .bottom {
@@ -92,21 +100,10 @@
             animation: typing 1.5s steps(20, end), cursor-blink 0.2s step-end infinite alternate;
         }
 
-        @keyframes typing {
-            from {
-                width: 0;
-            }
-        }
-
-        @keyframes cursor-blink {
-            50% {
-                border-color: transparent;
-            }
-        }
 
         .bottom-body {
             display: flex;
-            flex-direction: row;
+            flex-direction: column;
             justify-content: center;
             align-items: center;
             width: 1100px;
@@ -116,33 +113,41 @@
 
         .bottom-body .habit-input {
             display: flex;
-            flex-direction: column;
+            flex-direction: row;
             justify-content: center;
             align-items: center;
-            width: 300px;
-            height: 80%;
+            width: 800px;
+            height: 70px;
             background-color: #fff;
-            box-shadow: 1px 1px 20px 8px #ED8975;
             border-radius: 30px;
+            z-index: 100;
+            border: 1px solid #ED8975;
+            padding-top: 20px;
         }
 
         .bottom-body .habit-input input {
-            width: 200px;
+            width: 300px;
+            height: 30px;
+            background-color: #fff;
+            border: none;
+            border-bottom: 1px solid black;
+            z-index: 100;
+            margin-left: 10px;
         }
 
         .bottom-body .habit-input button {
-            width: 200px;
+            width: 100px;
             height: 35px;
-            margin-top: 250px;
             border-radius: 30px;
             background-color: #ED8975;
             border: none;
-            color: #fff
+            color: #fff;
+            margin-left: 80px;
         }
 
         .bottom-body .swiper {
             width: 600px;
-            height: 500px;
+            height: 400px;
             margin-left: 100px;
         }
 
@@ -186,8 +191,10 @@
             border-color: transparent;
             color: #fff !important;
             border-radius: 30px;
+            z-index: 100;
+            margin-top: -200px;
+            margin-bottom: 300px;
         }
-
 
         .top {
             position: relative;
@@ -195,6 +202,7 @@
 
         .wrap {
             position: relative;
+            z-index: 1;
         }
 
         .nav-main {
@@ -208,25 +216,11 @@
             background: #fff;
             display: flex;
             flex-wrap: wrap;
-            z-index: 1000;
+            margin-top: 50px;
         }
 
-        .btn-toggle-nav {
-            width: 55px;
-            height: 55px;
-            background-color: #E9B6AE;
-            background-image: url('/static/img_menu.png');
-            background-repeat: no-repeat;
-            background-size: contain;
-            background-position: center;
-            cursor: pointer;
-            margin-right: -22px;
-            border-radius: 25px;
-        }
 
-        .btn-toggle-nav:hover {
-            opacity: 0.5;
-        }
+
 
         .nav-main ul {
             display: flex;
@@ -239,67 +233,52 @@
             line-height: 60px;
         }
 
-        .nav-main ul li a {
-            display: block;
-            height: 100%;
-            padding: 0 10px;
-            text-transform: uppercase;
-            text-emphasis: none;
-            {#columns: #111;#}
-            font-family: arial;
-            font-size: 16px;
-        }
 
-        .nav-sidebar {
+
+
+        section {
             position: absolute;
-            right: 0;
-            bottom: 0;
-            width: 50px;
-            height: 640px;
-            padding: 0 5px;
-            background-color: #E9B6AE;
-            z-index: 1000;
-            transition: all 0.3s ease-in-out;
-            border-bottom-right-radius: 20px;
-            border-radius: 20px;
+            width: 1200px;
+            height: 600px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            z-index: -1;
+
         }
 
-        .nav-sidebar ul {
-            padding-top: 15px;
-            overflow: hidden;
-            visibility: hidden;
-        }
-
-        .nav-sidebar ul li {
-            line-height: 60px;
-            list-style: none;
-        }
-
-        .nav-sidebar ul li span,
-        .nav-sidebar ul li a {
-            display: block;
-            height: 60px;
-            padding: 0 10px;
-            text-decoration: none;
-            text-transform: uppercase;
-            color: #111;
-            font-family: Arial;
-            font-size: 16px;
-            white-space: nowrap;
-            opacity: 0;
-            transition: all 0.3s ease-in-out;
-        }
-
-        .nav-sidebar ul li a:hover {
-            background-color: #eee;
+        svg {
             border-radius: 30px;
         }
+
+        section h2 {
+            position: relative;
+            font-size: 6em;
+            color: rgb(44, 17, 17);
+        }
+
+        section svg {
+            position: absolute;
+            top: 0;
+            left: 0;
+        }
+
+        .bottom button {
+            font-family: 'Jua', sans-serif;
+
+        }
+
     </style>
 
     <script>
+
         $(document).ready(function () {
             console.log('it works')
+            console.log($("#my-data").data("name"))
+            console.log(typeof ($("#my-data").data("name").toString()))
+            console.log(typeof ($("#habit_input").val()))
             showHabit()
+
         })
 
         function likeHabit(habit) {
@@ -313,6 +292,7 @@
                 }
             });
         }
+
         function minusHabit(habit) {
             $.ajax({
                 type: 'POST',
@@ -324,6 +304,7 @@
                 }
             });
         }
+
         function deleteHabit(habit) {
             $.ajax({
                 type: 'POST',
@@ -336,32 +317,46 @@
             });
         }
 
-        function new_habit() {
+        function new_habit2() {
             let new_habit = $("#habit_input").val()
             $.ajax({
                 type: "POST",
                 url: "/habit",
-                data: {new_habit_give: new_habit , username : },
+                data: {new_habit_give: new_habit},
                 success: function (response) {
                     alert(response["msg"])
                     window.location.reload();
                 }
             });
         }
+        {#function new_habit() {#}
+        {#    let new_habit = $("#habit_input").val()#}
+        {#    let user_name = $("#my-data").data("name").toString()#}
+        {##}
+        {#    $.ajax({#}
+        {#        type: "POST",#}
+        {#        url: "/habit",#}
+        {#        data: {new_habit_give: new_habit, username_give: user_name},#}
+        {#        success: function (response) {#}
+        {#            alert(response["msg"])#}
+        {#            window.location.reload();#}
+        {#        }#}
+        {#    });#}
 
-        function showHabit() {
-            $.ajax({
-                type: 'GET',
-                url: '/habit',
-                data: {},
-                success: function (response) {
-                    console.log("성공")
-                    let habits = response['all_habits'];
-                    for (let i = 0; i < habits.length; i++) {
-                        let habit = habits[i]['habit'];
-                        let like = habits[i]['like'];
-                        let card_box = '#cards-box' + i
-                        let temp_html = `<div class="card">
+
+            function showHabit() {
+                $.ajax({
+                    type: 'GET',
+                    url: '/habit',
+                    data: {},
+                    success: function (response) {
+                        console.log("성공")
+                        let habits = response['all_habits'];
+                        for (let i = 0; i < habits.length; i++) {
+                            let habit = habits[i]['habit'];
+                            let like = habits[i]['like'];
+                            let card_box = '#cards-box' + i
+                            let temp_html = `<div class="card">
                                                 <div class="card-content">
                                                     <div class="media">
                                                         <div class="media-content">
@@ -381,31 +376,33 @@
                                                     </a>
                                                 </footer>
                                             </div>`
-                        let temp_html2 = `<div id=cards-box${i + 1} class="swiper-slide">
+                            let temp_html2 = `<div id=cards-box${i + 1} class="swiper-slide">
                         </div>`
-                        $(card_box).append(temp_html)
-                        $('#slide-box0').append(temp_html2)
+                            $(card_box).append(temp_html)
+                            $('#slide-box0').append(temp_html2)
+                        }
+
                     }
-
-                }
-            });
-        }
-
-
-        function sign_out2() {
-            let logout = confirm('벌써 나가시려구요...? 🤔 흐음... 당신은 프로 작심삼일러?')
-            if (logout === true) {
-                alert('그래도, Have a good day! 🤗 ')
-                window.location.href = "/login"
-            } else {
-                alert('안나가셨네요? 🤗 그럼 습관을 조금 더 점검해볼까요?')
+                });
             }
-        }
+
+
+            function sign_out2() {
+                let logout = confirm('벌써 나가시려구요...? 🤔 흐음... 당신은 프로 작심삼일러?')
+                if (logout === true) {
+                    alert('그래도, Have a good day! 🤗 ')
+                    window.location.href = "/login"
+                } else {
+                    alert('안나가셨네요? 🤗 그럼 습관을 조금 더 점검해볼까요?')
+                }
+            }
+
     </script>
 </head>
 
 <body>
 <div class="wrap">
+    <meta id="my-data" data-name="{{ user_info.username }}">
     <div class="top">
         <nav class="nav-main">
             <div class="logo">
@@ -416,8 +413,8 @@
     </div>
     <div class="bottom">
         <div class="bottom-header">
-            <h1>
-                Welcome back ${name} ...
+            <h1 id="username">
+                {{ user_info.username }}
             </h1>
         </div>
         <div class="bottom-body">
@@ -428,7 +425,7 @@
                 <p>
                     (습관을 입력해주세요. 입력을 안했을시 경고) or alert('입력해주세요')
                 </p>
-                <button type="submit" onclick="new_habit()">
+                <button type="submit" onclick="new_habit2()">
                     습관 생성
                 </button>
             </div>
@@ -436,68 +433,68 @@
                 <div id=slide-box0 class="swiper-wrapper">
                     <div id=cards-box0 class="swiper-slide"></div>
                 </div>
-                    <div class="swiper-pagination"></div>
-                    <div class="swiper-button-prev"></div>
-                    <div class="swiper-button-next"></div>
-                </div>
-                <aside class="nav-sidebar">
-                    <ul>
-                        <li><span>현재: 상세페이지</span></li>
-                        <li><a href="/">사용자들 프로필 모음으로 나가기</a></li>
-                    </ul>
-                </aside>
+                <div class="swiper-pagination"></div>
+                <div class="swiper-button-prev"></div>
+                <div class="swiper-button-next"></div>
             </div>
+            <aside class="nav-sidebar">
+                <ul>
+                    <li><span>현재: 상세페이지</span></li>
+                    <li><a href="/">사용자들 프로필 모음으로 나가기</a></li>
+                </ul>
+            </aside>
         </div>
     </div>
+</div>
 
 
-    <script src="https://unpkg.com/swiper@7/swiper-bundle.min.js"></script>
-    <script>
-        const swiper = new Swiper('.mySwiper', {
-            cssMode: true,
-            navigation: {
-                nextEl: ".swiper-button-next",
-                prevEl: ".swiper-button-prev",
-            },
-            pagination: {
-                el: ".swiper-pagination",
-            },
-            mousewheel: true,
-            keyboard: true,
-        });
-        let toggleNavStatus = false;
+<script src="https://unpkg.com/swiper@7/swiper-bundle.min.js"></script>
+<script>
+    const swiper = new Swiper('.mySwiper', {
+        cssMode: true,
+        navigation: {
+            nextEl: ".swiper-button-next",
+            prevEl: ".swiper-button-prev",
+        },
+        pagination: {
+            el: ".swiper-pagination",
+        },
+        mousewheel: true,
+        keyboard: true,
+    });
+    let toggleNavStatus = false;
 
-        let toggleNav = function () {
-            let getSidebar = document.querySelector(".nav-sidebar");
-            let getSidebarUl = document.querySelector(".nav-sidebar ul");
-            let getSidebarTitle = document.querySelector(".nav-sidebar span");
-            let getSidebarLinks = document.querySelectorAll(".nav-sidebar a");
+    let toggleNav = function () {
+        let getSidebar = document.querySelector(".nav-sidebar");
+        let getSidebarUl = document.querySelector(".nav-sidebar ul");
+        let getSidebarTitle = document.querySelector(".nav-sidebar span");
+        let getSidebarLinks = document.querySelectorAll(".nav-sidebar a");
 
-            if (toggleNavStatus === false) {
-                getSidebarUl.style.visibility = "visible";
-                getSidebar.style.width = "272px";
-                getSidebarTitle.style.opacity = "0.5";
+        if (toggleNavStatus === false) {
+            getSidebarUl.style.visibility = "visible";
+            getSidebar.style.width = "272px";
+            getSidebarTitle.style.opacity = "0.5";
 
-                let arrayLength = getSidebarLinks.length;
-                for (var i = 0; i < arrayLength; i++) {
-                    getSidebarLinks[i].style.opacity = "1";
-                }
-                toggleNavStatus = true;
-            } else if (toggleNavStatus === true) {
-                getSidebar.style.width = "50px";
-                getSidebarTitle.style.opacity = "0";
-
-                let arrayLength = getSidebarLinks.length;
-                for (let i = 0; i < arrayLength; i++) {
-                    getSidebarLinks[i].style.opacity = "0";
-                }
-
-                getSidebarUl.style.visibility = "hidden";
-
-                toggleNavStatus = false;
+            let arrayLength = getSidebarLinks.length;
+            for (var i = 0; i < arrayLength; i++) {
+                getSidebarLinks[i].style.opacity = "1";
             }
+            toggleNavStatus = true;
+        } else if (toggleNavStatus === true) {
+            getSidebar.style.width = "50px";
+            getSidebarTitle.style.opacity = "0";
+
+            let arrayLength = getSidebarLinks.length;
+            for (let i = 0; i < arrayLength; i++) {
+                getSidebarLinks[i].style.opacity = "0";
+            }
+
+            getSidebarUl.style.visibility = "hidden";
+
+            toggleNavStatus = false;
         }
-    </script>
+    }
+</script>
 </body>
 
 </html>

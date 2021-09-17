@@ -74,6 +74,16 @@ def my_page(username):
     except (jwt.ExpiredSignatureError, jwt.exceptions.DecodeError):
         return redirect(url_for("home"))
 
+# @app.route('/habit/<username>')
+# def my_habitpage(username):
+#     token_receive = request.cookies.get('mytoken')
+#     try:
+#         payload = jwt.decode(token_receive, SECRET_KEY, algorithms=['HS256'])
+#         status = (username == payload["id"])  # 내 프로필이면 True, 다른 사람 프로필 페이지면 False
+#         user_info = db.users.find_one({"username": username}, {"_id": False})
+#         return render_template('detail_final.html', user_info=user_info, status=status)
+#     except (jwt.ExpiredSignatureError, jwt.exceptions.DecodeError):
+#         return redirect(url_for("home"))
 
 @app.route('/sign_in', methods=['POST'])
 def sign_in():
@@ -126,6 +136,7 @@ def main_move():
     token_receive = request.cookies.get('mytoken')
     try:
         payload = jwt.decode(token_receive, SECRET_KEY, algorithms=['HS256'])
+
         user_info = db.users.find_one({"username": payload["id"]})
         return render_template('detail_final.html', user_info=user_info)
 
@@ -245,10 +256,35 @@ def update_like():
     except (jwt.ExpiredSignatureError, jwt.exceptions.DecodeError):
         return redirect(url_for("home"))
 #################################################################habit저장용
+# @app.route('/habit', methods=['POST'])
+# def write_habit():
+#     habit_receive = request.form['new_habit_give']
+#     username_receive = request.form['username_give']
+#     doc = {
+#         'username' : username_receive,
+#         'habit': habit_receive,
+#         'like' : 0
+#     }
+#     db.habit.insert_one(doc)
+#     return jsonify({'msg': '습관 저장 완료!'})
+# # API 역할을 하는 부분
+#
+# @app.route('/habit', methods=['GET'])
+# def show_habit():
+#     habits = db.habit.find_one({}, {'_id': False}).sort('like', -1)
+#     return jsonify({'all_habits': habits})
+#
+#     # token_receive = request.cookies.get('mytoken')
+#     # try:
+#     #     payload = jwt.decode(token_receive, SECRET_KEY, algorithms=['HS256'])
+#     #     habits = db.habit.find_one({"username": payload["id"]}, {'_id': False}).sort('like', -1)
+#     #     return jsonify({'all_habits': habits})
+#     # except (jwt.ExpiredSignatureError, jwt.exceptions.DecodeError):
+#     #     return redirect(url_for("home"))
+#
 @app.route('/habit', methods=['POST'])
 def write_habit():
     habit_receive = request.form['new_habit_give']
-
     doc = {
         'habit': habit_receive,
         'like' : 0
@@ -260,11 +296,9 @@ def write_habit():
 
 # API 역할을 하는 부분
 @app.route('/habit', methods=['GET'])
-
 def show_habit():
     habits = list(db.habit.find({}, {'_id': False}).sort('like', -1))
     return jsonify({'all_habits': habits})
-
 
 @app.route('/habit/like', methods=['POST'])
 def like_habit():
