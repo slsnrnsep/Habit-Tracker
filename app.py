@@ -127,7 +127,7 @@ def main_move():
     try:
         payload = jwt.decode(token_receive, SECRET_KEY, algorithms=['HS256'])
         user_info = db.users.find_one({"username": payload["id"]})
-        return render_template('detail.html', user_info=user_info)
+        return render_template('detail_final.html', user_info=user_info)
 
     except jwt.ExpiredSignatureError:
         return redirect(url_for("login", msg="로그인 시간이 만료되었습니다."))
@@ -244,6 +244,52 @@ def update_like():
         return jsonify({"result": "success", 'msg': 'updated', "count": count})
     except (jwt.ExpiredSignatureError, jwt.exceptions.DecodeError):
         return redirect(url_for("home"))
+#################################################################habit저장용
+@app.route('/habit', methods=['POST'])
+def write_habit():
+    habit_receive = request.form['new_habit_give']
+
+    doc = {
+        'habit': habit_receive,
+        'like' : 0
+    }
+    db.habit.insert_one(doc)
+
+    return jsonify({'msg': '습관 저장 완료!'})
+
+@app.route('/habit', methods=['GET'])
+def read_habit():
+    habits = list(db.habit.find({}, {'_id': False}))
+    return jsonify({'all_habits': habits})
+
+
+# API 역할을 하는 부분
+@app.route('/habit', methods=['GET'])
+def show_habit():
+    habits = list(db.habit.find({}, {'_id': False}).sort('like', -1))
+    return jsonify({'habits': habits})
+
+
+@app.route('/habit/like', methods=['POST'])
+def like_habit():
+    habit_receive = request.form['habit_give']
+
+    target_habit = db.habit.find_one({'habit': habit_receive})
+    current_like = target_habit['like']
+
+    new_like = current_like + 1
+
+    db.habit.update_one({'habit': habit_receive}, {'$set': {'like': new_like}})
+
+    return jsonify({'msg': '슴관라이크 완료!'})
+
+
+@app.route('/habit/delete', methods=['POST'])
+def delete_habit():
+    habit_receive = request.form['habit_give']
+    db.habit.delete_one({'habit': habit_receive})
+    return jsonify({'msg': 'habit 삭제 완료!'})
+
 
 if __name__ == '__main__':
     app.run('0.0.0.0', port=5000, debug=True)

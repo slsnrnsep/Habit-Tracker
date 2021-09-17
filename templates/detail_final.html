@@ -215,7 +215,7 @@
             width: 55px;
             height: 55px;
             background-color: #E9B6AE;
-            background-image: url('/static/img:menu.png');
+            background-image: url('/static/img_menu.png');
             background-repeat: no-repeat;
             background-size: contain;
             background-position: center;
@@ -245,7 +245,7 @@
             padding: 0 10px;
             text-transform: uppercase;
             text-emphasis: none;
-            columns: #111;
+            {#columns: #111;#}
             font-family: arial;
             font-size: 16px;
         }
@@ -301,51 +301,35 @@
             console.log('it works')
         })
 
-        function update_profile() {
-            let name = $('#input-name').val()
-            let file = $('#input-pic')[0].files[0]
-            let about = $("#textarea-about").val()
-            let form_data = new FormData()
-            form_data.append("file_give", file)
-            form_data.append("name_give", name)
-            form_data.append("about_give", about)
-            console.log(name, file, about, form_data)
-
+        function likeHabit(habit) {
             $.ajax({
-                type: "POST",
-                url: "/update_profile",
-                data: form_data,
-                cache: false,
-                contentType: false,
-                processData: false,
+                type: 'POST',
+                url: '/habit/like',
+                data: {habit_give: habit},
                 success: function (response) {
-                    if (response["result"] == "success") {
-                        alert(response["msg"])
-                        window.location.reload()
-                    }
+                    alert(response['msg']);
+                    window.location.reload()
                 }
             });
         }
 
-        function sign_out() {
-            $.removeCookie('mytoken', {path: '/'});
-            let logout = confirm('벌써 나가시려구요...? 🤔 흐음... 당신은 프로 작심삼일러?')
-            if (logout === 'Y') {
-                window.location.href = "/login"
-            } else if (logout === 'y') {
-                window.location.href = "/login"
-            } else {
-                alert('안나가셨네요? 🤗 그럼 습관을 조금 더 점검해볼까요? ㄱㄱㄱ')
-            }
+        function deleteHabit(habit) {
+            $.ajax({
+                type: 'POST',
+                url: '/habit/delete',
+                data: {habit_give: habit},
+                success: function (response) {
+                    alert(response['msg']);
+                    window.location.reload()
+                }
+            });
         }
 
         function new_habit() {
             let new_habit = $("#habit_input").val()
-            console.log(new_habit)
-
             $.ajax({
                 type: "POST",
-                url: "/detail",
+                url: "/habit",
                 data: {new_habit_give: new_habit},
                 success: function (response) {
                     alert(response["msg"])
@@ -357,74 +341,51 @@
         function showHabit() {
             $.ajax({
                 type: 'GET',
-                url: '/detail_list',
+                url: '/habit',
                 data: {},
                 success: function (response) {
-                    let user_feat = response['user_feat']
-                    console.log(user_feat)
-                    $('#cards-box').empty()
-                    for (let i = 0; i < user_feat.length; i++) {
-                        let id = user_feat[i]['username']
-                        let img_url = user_feat[i]['profile_pic_real']
-                        let nickname = user_feat[i]['profile_name']
-                        let info = user_feat[i]['profile_info']
-                        let img_url_before = "url_for('static', filename="
-                        let img_url_after = ")"
-                        let finish = img_url_before + img_url + img_url_after
-                        console.log(finish)
-                        let temp_html = `<div class="swiper-slide">
-                            <div class="card">
-                                <div class="card-content">
-                                    <div class="content">
-                                        ${id}times
-                                        <br>
-                                        /week
-                                    </div>
-                                    <div class="habit-name">
-                                        ${nickname}
-                                    </div>
-                                    <div class="buttons">
-                                        <button type="submit">
-                                            <i class="fa fa-plus-circle" aria-hidden="true"></i>
-                                        </button>
-                                        <button type="submit">
-                                            <i class="fa fa-minus-circle" aria-hidden="true"></i>
-                                        </button>
-                                    </div>
-                                </div>
-                            </div>
+                    console.log("성공")
+                    let habits = response['all_habits'];
+                    for (let i = 0; i < habits.length; i++) {
+                        let habit = habits[i]['habit'];
+                        let like = habits[i]['like'];
+                        let card_box = '#cards-box' + i
+                        let temp_html = `<div class="card">
+                                                <div class="card-content">
+                                                    <div class="media">
+                                                        <div class="media-content">
+                                                             습관명:${habit},달성 회수:${like}
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <footer class="card-footer">
+                                                    <a href="#" onclick="likeHabit('${habit}')" class="card-footer-item has-text-info">
+                                                        습관 달성<span class="icon"><i class="fas fa-thumbs-up"></i></span>
+                                                    </a>
+                                                    <a href="#" onclick="deleteHabit('${habit}')" class="card-footer-item has-text-danger">
+                                                        습관 삭제 <span class="icon"><i class="fas fa-ban"></i></span>
+                                                    </a>
+                                                </footer>
+                                            </div>`
+                        let temp_html2 = `<div id=cards-box${i + 1} class="swiper-slide">
                         </div>`
-                        let temp_html = `
-                    <div class="swiper-slide">
-                    <div class="card">
-                              <div class="card-image">
-                            <figure class="image is-4x3" style="width: 150px; margin: 5px auto;">
-                                <img class="is-rounded"
-                                     src="${finish}"
-                                     alt="Placeholder image">
-                            </figure>
-                        </div>
-                        <div class="card-content">
-                            <div class="media">
-                                <div class="media-left">
-                                </div>
-                                <div class="media-content">
-                                    <p class="title is-4">${nickname}</p>
-                                    <p class="subtitle is-6">
-                                        <a href="user.html">@${id}</a>
-                                    </p>
-                                </div>
-                            </div>
-
-                            <div class="content">
-                               ${info}
-                            </div>
-                        </div>`
-                        $('#cards-box').append(temp_html)
+                        $('#cards-box0').append(temp_html)
+                        $('#slide-box0').append(temp_html2)
                     }
 
                 }
             });
+        }
+
+
+        function sign_out2() {
+            let logout = confirm('벌써 나가시려구요...? 🤔 흐음... 당신은 프로 작심삼일러?')
+            if (logout === true) {
+                alert('그래도, Have a good day! 🤗 ')
+                window.location.href = "/login"
+            } else {
+                alert('안나가셨네요? 🤗 그럼 습관을 조금 더 점검해볼까요?')
+            }
         }
     </script>
 </head>
@@ -458,70 +419,71 @@
                 </button>
             </div>
             <div class="swiper mySwiper">
-                <div id=cards-box class="swiper-wrapper">
+                <div id=slide-box0 class="swiper-wrapper">
+                    <div id=cards-box0 class="swiper-slide"></div>
                 </div>
-                <div class="swiper-pagination"></div>
-                <div class="swiper-button-prev"></div>
-                <div class="swiper-button-next"></div>
+                    <div class="swiper-pagination"></div>
+                    <div class="swiper-button-prev"></div>
+                    <div class="swiper-button-next"></div>
+                </div>
+                <aside class="nav-sidebar">
+                    <ul>
+                        <li><span>현재: 상세페이지</span></li>
+                        <li><a href="/">사용자들 프로필 모음으로 나가기</a></li>
+                    </ul>
+                </aside>
             </div>
-            <aside class="nav-sidebar">
-                <ul>
-                    <li><span>현재: 상세페이지</span></li>
-                    <li><a href="/">사용자들 프로필 모음으로 나가기</a></li>
-                </ul>
-            </aside>
         </div>
     </div>
-</div>
 
 
-<script src="https://unpkg.com/swiper@7/swiper-bundle.min.js"></script>
-<script>
-    const swiper = new Swiper('.mySwiper', {
-        cssMode: true,
-        navigation: {
-            nextEl: ".swiper-button-next",
-            prevEl: ".swiper-button-prev",
-        },
-        pagination: {
-            el: ".swiper-pagination",
-        },
-        mousewheel: true,
-        keyboard: true,
-    });
-    let toggleNavStatus = false;
+    <script src="https://unpkg.com/swiper@7/swiper-bundle.min.js"></script>
+    <script>
+        const swiper = new Swiper('.mySwiper', {
+            cssMode: true,
+            navigation: {
+                nextEl: ".swiper-button-next",
+                prevEl: ".swiper-button-prev",
+            },
+            pagination: {
+                el: ".swiper-pagination",
+            },
+            mousewheel: true,
+            keyboard: true,
+        });
+        let toggleNavStatus = false;
 
-    let toggleNav = function () {
-        let getSidebar = document.querySelector(".nav-sidebar");
-        let getSidebarUl = document.querySelector(".nav-sidebar ul");
-        let getSidebarTitle = document.querySelector(".nav-sidebar span");
-        let getSidebarLinks = document.querySelectorAll(".nav-sidebar a");
+        let toggleNav = function () {
+            let getSidebar = document.querySelector(".nav-sidebar");
+            let getSidebarUl = document.querySelector(".nav-sidebar ul");
+            let getSidebarTitle = document.querySelector(".nav-sidebar span");
+            let getSidebarLinks = document.querySelectorAll(".nav-sidebar a");
 
-        if (toggleNavStatus === false) {
-            getSidebarUl.style.visibility = "visible";
-            getSidebar.style.width = "272px";
-            getSidebarTitle.style.opacity = "0.5";
+            if (toggleNavStatus === false) {
+                getSidebarUl.style.visibility = "visible";
+                getSidebar.style.width = "272px";
+                getSidebarTitle.style.opacity = "0.5";
 
-            let arrayLength = getSidebarLinks.length;
-            for (var i = 0; i < arrayLength; i++) {
-                getSidebarLinks[i].style.opacity = "1";
+                let arrayLength = getSidebarLinks.length;
+                for (var i = 0; i < arrayLength; i++) {
+                    getSidebarLinks[i].style.opacity = "1";
+                }
+                toggleNavStatus = true;
+            } else if (toggleNavStatus === true) {
+                getSidebar.style.width = "50px";
+                getSidebarTitle.style.opacity = "0";
+
+                let arrayLength = getSidebarLinks.length;
+                for (let i = 0; i < arrayLength; i++) {
+                    getSidebarLinks[i].style.opacity = "0";
+                }
+
+                getSidebarUl.style.visibility = "hidden";
+
+                toggleNavStatus = false;
             }
-            toggleNavStatus = true;
-        } else if (toggleNavStatus === true) {
-            getSidebar.style.width = "50px";
-            getSidebarTitle.style.opacity = "0";
-
-            let arrayLength = getSidebarLinks.length;
-            for (let i = 0; i < arrayLength; i++) {
-                getSidebarLinks[i].style.opacity = "0";
-            }
-
-            getSidebarUl.style.visibility = "hidden";
-
-            toggleNavStatus = false;
         }
-    }
-</script>
+    </script>
 </body>
 
 </html>

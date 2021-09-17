@@ -505,8 +505,6 @@
                     <div class="swiper mySwiper">
                         <div id=slide-box0 class="swiper-wrapper">
                             <div id=cards-box0 class="swiper-slide"></div>
-                            <script>
-                            </script>
                         </div>
                         <div class="swiper-button-next"></div>
                         <div class="swiper-button-prev"></div>
@@ -533,6 +531,8 @@
 <script>
     const swiper = new Swiper('.mySwiper', {
         cssMode: true,
+        slidesPerView: 3,
+        spaceBetween: 30,
         navigation: {
             nextEl: ".swiper-button-next",
             prevEl: ".swiper-button-prev",
