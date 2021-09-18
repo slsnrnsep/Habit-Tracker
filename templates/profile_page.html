@@ -3,64 +3,50 @@
 
 <head>
     <!-- Webpage Title -->
-    <title>Habit Tracker | Habit page</title>
-
+    <title>Habit Tracker | Main page</title>
+    <meta property="og:title" content="습관 기록 페이지"/>
+    <meta property="og:description" content="처음에는 우리가 습관을 만들지만, 나중에는 습관이 우리를 만든다."/>
+    <meta property="og:image" content="{{ url_for('static', filename='img.png') }}"/>
     <!-- Required meta tags -->
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 
-    <!--CSS -->
+    <!-- CSS -->
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bulma@0.9.1/css/bulma.min.css">
-    <link rel="stylesheet" href="https://unpkg.com/swiper@7/swiper-bundle.min.css">
     <link href="//maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://unpkg.com/swiper/swiper-bundle.min.css"/>
     <link href="https://fonts.googleapis.com/css2?family=Nanum+Myeongjo&family=Noto+Sans+KR:wght@100&display=swap"
           rel="stylesheet">
-    <link href="https://fonts.googleapis.com/css2?family=Pacifico&display=swap" rel="stylesheet">
-    <link href="https://fonts.googleapis.com/css2?family=Nanum+Pen+Script&display=swap" rel="stylesheet">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Jua&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Graduate&display=swap" rel="stylesheet">
+
+
     <!-- JS -->
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-cookie/1.4.1/jquery.cookie.js"></script>
+    <script src="{{ url_for('static', filename='myjs.js') }}"></script>
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css"
           integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+
     <style>
         * {
             box-sizing: border-box;
             margin: 0;
-                        font-family: 'Jua', sans-serif;
-
+            font-family: 'Jua', sans-serif;
+            font-size: 18px;
         }
-
-
 
         .wrap {
             display: flex;
             flex-direction: column;
-            justify-content: center;
+            justify-content: space-between;
             align-items: center;
             width: 1200px;
             height: 700px;
             margin: 70px auto;
-            border-radius: 30px;
             box-shadow: 5px 5px 10px 10px #9E9E9E;
-            background-size: cover;
-            background-position: center center;
-            background-repeat: no-repeat;
-        }
-
-        .top {
-            display: flex;
-            flex-direction: row;
-            justify-content: space-between;
-            align-items: center;
-            width: 1200px;
-            height: 20px;
-            padding: 30px;
-            margin-bottom: 70px;
+            border-radius: 30px;
         }
 
         .logo {
@@ -71,7 +57,43 @@
             width: 200px;
             height: 50px;
             margin: 15px 0;
+        }
 
+        .is-sparta {
+            color: #ED8975 !important;
+            border-radius: 20px;
+        }
+
+        .button.is-sparta {
+            height: 35px;
+            background-color: #ED8975;
+            border-color: transparent;
+            color: #fff !important;
+        }
+
+        .button.is-sparta.is-outlined {
+            background-color: transparent;
+            border-color: #ED8975;
+            color: #ED8975 !important;
+            height: 35px;
+        }
+
+        .help {
+            color: gray;
+        }
+
+        .button.is-danger.is-rounded {
+            background-color: #ED8975 !important;
+        }
+
+        .top {
+            display: flex;
+            flex-direction: row;
+            justify-content: space-between;
+            align-items: center;
+            width: 1200px;
+            height: 10px;
+            padding: 30px;
         }
 
         .bottom {
@@ -79,121 +101,122 @@
             flex-direction: column;
             justify-content: center;
             align-items: center;
-            width: 1100px;
-            margin-bottom: 30px;
+            width: 1200px;
+            height: 700px;
+            margin-top: 40px;
+        }
+
+        .section {
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            width: 1200px;
+            height: 700px;
+            margin-top: 40px;
         }
 
         .bottom-header {
+            margin: auto auto auto -100px;
+            width: 100px;
+            margin-bottom: 50px;
+            margin-left: 0%;
+
+        }
+
+        .card {
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-content: center;
+            width: 300px;
+            height: 500px;
+            margin: auto;
+            border-radius: 30px;
+            font-family: 'Jua', sans-serif;
+            font-size: 18px;
+        }
+
+        .imag {
+            border-radius: 50%;
+        }
+
+        .swiper {
+            width: 1000px;
+            height: 500px;
+            margin-bottom: 60px;
+        }
+
+        .card-image {
             width: 100%;
-            height: 50px;
-            padding: 10px;
-            text-align: left;
+            height: 30%;
         }
 
-        .bottom-header h1 {
-            font: bold 200% Consolas, Monaco, monospace;
-            color: #ED8975;
-            border-right: 0.1em solid;
-            width: 25ch;
-            white-space: nowrap;
-            overflow: hidden;
-            animation: typing 1.5s steps(20, end), cursor-blink 0.2s step-end infinite alternate;
+        .card-content {
+            text-align: center;
         }
 
+        a.button {
+            display: inline-block;
+            padding: 10px 20px;
+            text-decoration: none;
+            color: #fff;
+            margin: 20px;
+        }
+
+        #modal {
+            display: none;
+            position: fixed;
+            width: 100%;
+            height: 100%;
+            top: 0;
+            left: 0;
+            background: rgba(0, 0, 0, 0.3);
+        }
+
+        .modal-con {
+            display: none;
+            position: fixed;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            max-width: 60%;
+            min-height: 30%;
+            background: #fff;
+        }
+
+        .modal-con .title {
+            font-size: 20px;
+            padding: 20px;
+            background: gold;
+        }
+
+        .modal-con .con {
+            font-size: 15px;
+            line-height: 1.3;
+            padding: 30px;
+        }
+
+        .modal-con .close {
+            display: block;
+            position: absolute;
+            width: 30px;
+            height: 30px;
+            border-radius: 50%;
+            border: 3px solid #000;
+            text-align: center;
+            line-height: 30px;
+            text-decoration: none;
+            color: #000;
+            font-size: 20px;
+            font-weight: bold;
+            right: 10px;
+            top: 10px;
+        }
 
         .bottom-body {
-            display: flex;
-            flex-direction: column;
-            justify-content: center;
-            align-items: center;
-            width: 1100px;
-            margin: 20px;
-            padding: 0 50px;
-        }
-
-        .bottom-body .habit-input {
-            display: flex;
-            flex-direction: row;
-            justify-content: center;
-            align-items: center;
-            width: 800px;
-            height: 70px;
-            background-color: #fff;
-            border-radius: 30px;
-            z-index: 100;
-            border: 1px solid #ED8975;
-            padding-top: 20px;
-        }
-
-        .bottom-body .habit-input input {
-            width: 300px;
-            height: 30px;
-            background-color: #fff;
-            border: none;
-            border-bottom: 1px solid black;
-            z-index: 100;
-            margin-left: 10px;
-        }
-
-        .bottom-body .habit-input button {
-            width: 100px;
-            height: 35px;
-            border-radius: 30px;
-            background-color: #ED8975;
-            border: none;
-            color: #fff;
-            margin-left: 80px;
-        }
-
-        .bottom-body .swiper {
-            width: 600px;
-            height: 400px;
-            margin-left: 100px;
-        }
-
-        .swiper .card {
-            display: flex;
-            flex-direction: column;
-            justify-content: center;
-            align-content: center;
-            width: 350px;
-            height: 350px;
-            border-radius: 50%;
-            margin: 15% auto;
-        }
-
-        .swiper .card .card-content {
-            text-align: center;
-            display: flex;
-            flex-direction: column;
-            justify-content: center;
-            align-content: center;
-        }
-
-        .swiper .card .card-content button {
-            border: none;
-            background-color: transparent;
-            color: #ED8975;
-            font-size: 25px;
-            cursor: pointer;
-            margin: auto;
-        }
-
-        .bottom-footer {
-            width: 100%;
-            height: 50px;
-            text-align: right;
-        }
-
-        .bottom-footer button {
-            height: 35px;
-            background-color: #ED8975;
-            border-color: transparent;
-            color: #fff !important;
-            border-radius: 30px;
-            z-index: 100;
-            margin-top: -200px;
-            margin-bottom: 300px;
+            font-family: 'Jua', sans-serif;
+            font-size: 18px;
         }
 
         .top {
@@ -202,7 +225,6 @@
 
         .wrap {
             position: relative;
-            z-index: 1;
         }
 
         .nav-main {
@@ -212,28 +234,138 @@
             position: absolute;
             top: 0;
             width: 1150px;
-            height: 60px;
+            height: 50px;
             background: #fff;
             display: flex;
             flex-wrap: wrap;
-            margin-top: 50px;
+            z-index: 1000;
         }
 
-
-
-
-        .nav-main ul {
-            display: flex;
-            flex-wrap: wrap;
-            padding-right: 15px;
+        .media-content {
+            font-family: 'Jua', sans-serif;
+            font-size: 18px;
         }
 
-        .nav-main ul li {
-            list-style: none;
+        .btn-toggle-nav {
+            width: 55px;
+            height: 55px;
+            margin-right: -22px;
+            border-radius: 25px;
+            background-color: #E9B6AE;
+            background-image: url('../static/img_menu.png');
+            background-repeat: no-repeat;
+            background-size: contain;
+            background-position: center;
+            cursor: pointer;
+        }
+
+        .btn-toggle-nav:hover {
+            opacity: 0.5;
+        }
+
+        .nav-sidebar {
+            position: absolute;
+            right: 0;
+            bottom: 0;
+            width: 50px;
+            height: 640px;
+            padding: 0px;
+            background-color: #E9B6AE;
+            z-index: 1000;
+            transition: all 0.3s ease-in-out;
+            border-bottom-right-radius: 20px;
+            border-radius: 20px;
+        }
+
+        .nav-sidebar ul {
+            padding-top: 15px;
+            overflow: hidden;
+            visibility: hidden;
+        }
+
+        .nav-sidebar ul li {
             line-height: 60px;
+            list-style: none;
+        }
+
+        .nav-sidebar ul li span,
+        .nav-sidebar ul li a {
+            display: block;
+            height: 60px;
+            padding: 0 10px;
+            text-decoration: none;
+            text-transform: uppercase;
+            color: #ffffff;
+            font-family: Arial;
+            font-size: 16px;
+            white-space: nowrap;
+            opacity: 0;
+            transition: all 0.3s ease-in-out;
+            text-align: center;
+        }
+
+        .nav-sidebar ul li span {
+            background-color: #fff;
+            border-radius: 30px;
+            margin: 10px;
+            color: #000;
+        }
+
+        .nav-sidebar ul li a:hover {
+            background-color: #eee;
+            border-radius: 30px;
+            color: #E9B6AE;
+        }
+
+        .is-rounded my_img {
+            width: 100px;
+            height: 100px;
         }
 
 
+        .bottom-header {
+            width: 100px;
+            height: 50px;
+            padding: 10px;
+            text-align: left;
+        }
+
+        .subtitle is-6 {
+            font-family: 'Jua', sans-serif;
+            font-size: 18px;
+        }
+
+        .title is-4 {
+            font-family: 'Jua', sans-serif;
+            font-size: 18px;
+        }
+
+        .content {
+            font-family: 'Jua', sans-serif;
+            font-size: 18px;
+        }
+
+        .bottom-header h1 {
+            font: bold 200% Graduate, monospace;
+            color: #ED8975;
+            border-right: 0.1em solid;
+            width: 30ch;
+            white-space: nowrap;
+            overflow: hidden;
+            animation: typing 1.5s steps(20, end), cursor-blink 0.2s step-end infinite alternate;
+        }
+
+        @keyframes typing {
+            from {
+                width: 0;
+            }
+        }
+
+        @keyframes cursor-blink {
+            50% {
+                border-color: transparent;
+            }
+        }
 
 
         section {
@@ -243,7 +375,6 @@
             display: flex;
             justify-content: center;
             align-items: center;
-            z-index: -1;
 
         }
 
@@ -263,139 +394,77 @@
             left: 0;
         }
 
-        .bottom button {
-            font-family: 'Jua', sans-serif;
-
-        }
-
     </style>
 
     <script>
-
         $(document).ready(function () {
-            console.log('it works')
-            console.log($("#my-data").data("name"))
-            console.log(typeof ($("#my-data").data("name").toString()))
-            console.log(typeof ($("#habit_input").val()))
-            showHabit()
-
+            showprofile()
         })
 
-        function likeHabit(habit) {
+        //DB에 저장된 프로필뿌려주는 fuction
+        function showprofile() {
             $.ajax({
-                type: 'POST',
-                url: '/habit/like',
-                data: {habit_give: habit},
+                type: 'GET',
+                url: '/user',
+                data: {},
                 success: function (response) {
-                    alert(response['msg']);
-                    window.location.reload()
-                }
-            });
-        }
+                    let user_feat = response['user_feat']
+                    console.log(user_feat)
+                    $('#cards-box').empty()
+                    for (let i = 0; i < user_feat.length; i++) {
+                        let id = user_feat[i]['username']
+                        let img_url = user_feat[i]['profile_pic_real']
+                        let nickname = user_feat[i]['profile_name']
+                        let info = user_feat[i]['profile_info']
+                        let img_url_before = "/static/"
+                        let img_url_after = "/profile_pics/"
+                        let finish = img_url_before + img_url
+                        let card_box = '#cards-box' + i
+                        let slide_box = '#slide-box' + i
+                        let temp_html = `<div class="card">
+                              <div class="card-image">
+                            <figure class="image is-4x3" style=" width: 100px; margin: auto;">
+                                <img class="is-rounded my_img" width="100px" height="100px"
+                                     src="${finish}"
+                                     alt="Placeholder image">
+                            </figure>
+                        </div>
+                        <div class="card-content">
+                            <div class="media">
+                                <div class="media-left">
+                                </div>
+                                <div class="media-content">
+                                    <p class="title is-4" >${nickname}</p>
+                                    <p class="subtitle is-6">
+                                        <a href="user.html">@${id}</a>
+                                    </p>
+                                </div>
+                            </div>
 
-        function minusHabit(habit) {
-            $.ajax({
-                type: 'POST',
-                url: '/habit/hate',
-                data: {habit_give: habit},
-                success: function (response) {
-                    alert(response['msg']);
-                    window.location.reload()
-                }
-            });
-        }
-
-        function deleteHabit(habit) {
-            $.ajax({
-                type: 'POST',
-                url: '/habit/delete',
-                data: {habit_give: habit},
-                success: function (response) {
-                    alert(response['msg']);
-                    window.location.reload()
-                }
-            });
-        }
-
-        function new_habit2() {
-            let new_habit = $("#habit_input").val()
-            $.ajax({
-                type: "POST",
-                url: "/habit",
-                data: {new_habit_give: new_habit},
-                success: function (response) {
-                    alert(response["msg"])
-                    window.location.reload();
-                }
-            });
-        }
-        {#function new_habit() {#}
-        {#    let new_habit = $("#habit_input").val()#}
-        {#    let user_name = $("#my-data").data("name").toString()#}
-        {##}
-        {#    $.ajax({#}
-        {#        type: "POST",#}
-        {#        url: "/habit",#}
-        {#        data: {new_habit_give: new_habit, username_give: user_name},#}
-        {#        success: function (response) {#}
-        {#            alert(response["msg"])#}
-        {#            window.location.reload();#}
-        {#        }#}
-        {#    });#}
-
-
-            function showHabit() {
-                $.ajax({
-                    type: 'GET',
-                    url: '/habit',
-                    data: {},
-                    success: function (response) {
-                        console.log("성공")
-                        let habits = response['all_habits'];
-                        for (let i = 0; i < habits.length; i++) {
-                            let habit = habits[i]['habit'];
-                            let like = habits[i]['like'];
-                            let card_box = '#cards-box' + i
-                            let temp_html = `<div class="card">
-                                                <div class="card-content">
-                                                    <div class="media">
-                                                        <div class="media-content">
-                                                             습관명:${habit},달성 회수:${like}
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                                <footer class="card-footer">
-                                                    <a href="#" onclick="likeHabit('${habit}')" class="card-footer-item has-text-info">
-                                                        습관 달성<span class="icon"><i class="fas fa-thumbs-up"></i></span>
-                                                    </a>
-                                                    <a href="#" onclick="minusHabit('${habit}')" class="card-footer-item has-text-danger">
-                                                        습관 안함 <span class="icon"><i class="fas fa-ban"></i></span>
-                                                    </a>
-                                                    <a href="#" onclick="deleteHabit('${habit}')" class="card-footer-item has-text-danger">
-                                                        습관 삭제 <span class="icon"><i class="fas fa-ban"></i></span>
-                                                    </a>
-                                                </footer>
-                                            </div>`
-                            let temp_html2 = `<div id=cards-box${i + 1} class="swiper-slide">
+                            <div class="content">
+                               ${info}
+                            </div>
+                        </div>
+                     </div>`
+                        let temp_html2 = `<div id=cards-box${i + 1} class="swiper-slide">
                         </div>`
-                            $(card_box).append(temp_html)
-                            $('#slide-box0').append(temp_html2)
-                        }
-
+                        $(card_box).append(temp_html)
+                        $('#slide-box0').append(temp_html2)
                     }
-                });
-            }
-
-
-            function sign_out2() {
-                let logout = confirm('벌써 나가시려구요...? 🤔 흐음... 당신은 프로 작심삼일러?')
-                if (logout === true) {
-                    alert('그래도, Have a good day! 🤗 ')
-                    window.location.href = "/login"
-                } else {
-                    alert('안나가셨네요? 🤗 그럼 습관을 조금 더 점검해볼까요?')
                 }
+            });
+        }
+
+        //로그아웃 fuction
+        function sign_out2() {
+            let logout = confirm('벌써 나가시려구요...? 🤔 흐음... 당신은 프로 작심삼일러?')
+            if (logout === true) {
+                alert('그래도, Have a good day! 🤗 ')
+                window.location.href = "/login"
+            } else {
+                alert('안나가셨네요? 🤗 그럼 습관을 조금 더 점검해볼까요?')
             }
+        }
     </script>
 </head>
 
@@ -405,51 +474,49 @@
         <nav class="nav-main">
             <div class="logo">
             </div>
-
+            <div class="btn-toggle-nav" onclick="toggleNav()"></div>
         </nav>
     </div>
     <div class="bottom">
         <section>
             <svg width="100%" height="100%" version="1.1" xmlns="http://www.w3.org/2000/svg">
-            <defs></defs>
-            <path id="myID" d=""/>
-        </svg>
-        <img src="./" alt="">
-        </section>
-        <div class="bottom-body">
-            <div class="habit-input">
-                <p>
-                    새로운 습관: <input id="habit_input" type="text" placeholder="새로운 습관을 추가해주세요." maxlength="10">
-                    <button type="submit" onclick="new_habit()">
-                    습관 생성
-                </button>
-                </p>
-            </div>
-            <div class="swiper mySwiper">
-                <div id=slide-box0 class="swiper-wrapper">
-                    <div id=cards-box0 class="swiper-slide"></div>
+                <defs></defs>
+                <path id="myID" d=""/>
+            </svg>
+            <div class="bottom-main-body">
+                <div class="bottom-header">
+                    <h1>
+                        Welcome back {{ user_info.profile_name }}님...
+                    </h1>
                 </div>
-                <div class="swiper-pagination"></div>
-                <div class="swiper-button-prev"></div>
-                <div class="swiper-button-next"></div>
+                <div class="bottom-body">
+                    <div class="swiper mySwiper">
+                        <div id=slide-box0 class="swiper-wrapper">
+                            <div id=cards-box0 class="swiper-slide"></div>
+                        </div>
+                        <div class="swiper-button-next"></div>
+                        <div class="swiper-button-prev"></div>
+                        <div class="swiper-pagination"></div>
+                    </div>
+                    <aside class="nav-sidebar">
+                        <ul>
+                            <li><span>Current Page | 메인 페이지</span></li>
+                            <li>
+                                <a href="#" onclick="sign_out2()">Log Out</a>
+                            </li>
+                            <li><a href="/user/{{ user_info.username }}">My Profile</a></li>
+                            <li><a href="/detail">My Habits</a></li>
+                        </ul>
+                    </aside>
+                </div>
             </div>
+        </section>
 
-        </div>
-        <div class="bottom-footer">
-                <button onclick="sign_out2()" >마이페이지 나가기</button>
-        </div>
     </div>
 </div>
-
-
-<script src="https://unpkg.com/swiper@7/swiper-bundle.min.js"></script>
+<!-- Swiper JS (슬라이드 기능) -->
+<script src="https://unpkg.com/swiper/swiper-bundle.min.js"></script>
 <script>
-
-
-    function sign_out2() {
-        window.location.href = "/"
-    }
-
     const swiper = new Swiper('.mySwiper', {
         cssMode: true,
         navigation: {
@@ -461,7 +528,9 @@
         },
         mousewheel: true,
         keyboard: true,
+        speed: 5000
     });
+
     let toggleNavStatus = false;
 
     let toggleNav = function () {
@@ -495,11 +564,15 @@
         }
     }
 </script>
+<script src="/main.js"></script>
+
+<!-- Wave JS 1 -->
 <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.1.1/gsap.min.js"
         integrity="sha512-0RYHqoOARmpxNEw+esxNHXaPoXWU36swC8a5BgmnexZNmOhDewCvKRNWitJiwf40o8JUsg831Uu/cRIN7sCdKA=="
         crossorigin="anonymous" referrerpolicy="no-referrer"></script>
 <script src="https://code.jquery.com/jquery-3.6.0.js" integrity="sha256-H+K7U5CnXl1h5ywQfKtSj8PCmoN9aaq30gDh27Xc0jk="
         crossorigin="anonymous"></script>
+<!-- Wave JS 2 -->
 <script>
     /*
 *   Wavify

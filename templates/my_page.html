@@ -171,11 +171,10 @@
 
     <script>
         $(document).ready(function () {
-            {#get_posts("{{ user_info.username }}")#}
-            {#window.location.replace("/user/{{user_info.username }}")#}
+
         })
 
-
+        //프로필 업데이트 POST Fuction
         function update_profile() {
             let name = $('#input-name').val()
             let file = $('#input-pic')[0].files[0]
@@ -203,18 +202,10 @@
             });
         }
 
-        function main_move() {
-            $.ajax({
-                type: 'GET',
-                url: '/detail',
-                data: {},
-                success: function (response) {
-                    $.cookie('mytoken', response['token'], {path: '/'});
-                    window.location.replace("/detail")
-                }
-            });
+        //'마이페이지 나가기' 버튼 클릭하면 프로필페이지로 돌아감
+        function sign_out2() {
+            window.location.href = "/"
         }
-
     </script>
 </head>
 
@@ -223,9 +214,6 @@
     <div class="top">
         <div class="logo">
         </div>
-
-
-
         {% if status %}
             <div class="modal" id="modal-edit">
 
@@ -347,25 +335,14 @@
         </section>
     </div>
 </div>
-<script>
-    $(document).ready(function () {
-        {#get_posts("{{ user_info.username }}")#}
-    })
 
-
-    function sign_out2() {
-        window.location.href = "/"
-    }
-
-</script>
-
-
+<!-- Wave JS 1 -->
 <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.1.1/gsap.min.js"
         integrity="sha512-0RYHqoOARmpxNEw+esxNHXaPoXWU36swC8a5BgmnexZNmOhDewCvKRNWitJiwf40o8JUsg831Uu/cRIN7sCdKA=="
         crossorigin="anonymous" referrerpolicy="no-referrer"></script>
 <script src="https://code.jquery.com/jquery-3.6.0.js" integrity="sha256-H+K7U5CnXl1h5ywQfKtSj8PCmoN9aaq30gDh27Xc0jk="
         crossorigin="anonymous"></script>
-
+<!-- Wave JS 2 -->
 <script>
     /*
 *   Wavify
@@ -651,6 +628,7 @@
         speed: .25
     });
 </script>
+
 </body>
 
 </html>

@@ -9,50 +9,58 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 
-    <!--CSS -->
+    <!-- Bulma CSS -->
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bulma@0.9.1/css/bulma.min.css">
+
+    <!-- Bootstrap -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css"
+        integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+
+    <!-- Swiper CSS (슬라이드 기능) -->
     <link rel="stylesheet" href="https://unpkg.com/swiper@7/swiper-bundle.min.css">
-    <link href="//maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet">
-    <link href="https://fonts.googleapis.com/css2?family=Nanum+Myeongjo&family=Noto+Sans+KR:wght@100&display=swap"
-          rel="stylesheet">
+
+    <!-- Goole Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Jua&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Nanum+Myeongjo&family=Noto+Sans+KR:wght@100&display=swap" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css2?family=Pacifico&display=swap" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css2?family=Nanum+Pen+Script&display=swap" rel="stylesheet">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Jua&display=swap" rel="stylesheet">
+
+    <!-- Font Awesome -->
+    <link href="//maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet">
+
     <!-- JS -->
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-cookie/1.4.1/jquery.cookie.js"></script>
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css"
-          integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+
     <style>
         * {
             box-sizing: border-box;
             margin: 0;
             font-family: 'Jua', sans-serif;
-
         }
-
 
         .wrap {
             display: flex;
+            position: relative;
             flex-direction: column;
             justify-content: center;
             align-items: center;
             width: 1200px;
             height: 700px;
             margin: 70px auto;
-            border-radius: 30px;
-            box-shadow: 5px 5px 10px 10px #9E9E9E;
             background-size: cover;
             background-position: center center;
             background-repeat: no-repeat;
+            border-radius: 30px;
+            box-shadow: 5px 5px 10px 10px #9E9E9E;
+            z-index: 1;
         }
 
         .top {
             display: flex;
+            position: relative;
             flex-direction: row;
             justify-content: space-between;
             align-items: center;
@@ -62,15 +70,26 @@
             margin-bottom: 70px;
         }
 
+        .nav-main {
+            display: flex;
+            flex-direction: row;
+            flex-wrap: wrap;
+            justify-content: space-between;
+            position: absolute;
+            top: 0;
+            width: 1150px;
+            height: 60px;
+            margin-top: 50px;
+        }
+
         .logo {
+            width: 200px;
+            height: 50px;
+            margin: 15px 0;
             background-image: url('../static/logo.png');
             background-size: cover;
             background-repeat: no-repeat;
             background-position: center;
-            width: 200px;
-            height: 50px;
-            margin: 15px 0;
-
         }
 
         .bottom {
@@ -80,13 +99,6 @@
             align-items: center;
             width: 1100px;
             margin-bottom: 30px;
-        }
-
-        .bottom-header {
-            width: 100%;
-            height: 50px;
-            padding: 10px;
-            text-align: left;
         }
 
         .bottom-header h1 {
@@ -99,7 +111,6 @@
             animation: typing 1.5s steps(20, end), cursor-blink 0.2s step-end infinite alternate;
         }
 
-
         .bottom-body {
             display: flex;
             flex-direction: column;
@@ -108,6 +119,23 @@
             width: 1100px;
             margin: 20px;
             padding: 0 50px;
+        }
+
+        section {
+            position: absolute;
+            width: 1200px;
+            height: 600px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            z-index: -1;
+        }
+
+        section svg {
+            position: absolute;
+            top: 0;
+            left: 0;
+            border-radius: 30px;
         }
 
         .bottom-body .habit-input {
@@ -122,6 +150,10 @@
             z-index: 100;
             border: 1px solid #ED8975;
             padding-top: 20px;
+        }
+
+        .bottom-body .habit-input p {
+            color: #ED8975;
         }
 
         .bottom-body .habit-input input {
@@ -143,7 +175,6 @@
             color: #fff;
             margin-left: 80px;
         }
-
 
         .bottom-body .swiper {
             width: 600px;
@@ -180,130 +211,30 @@
             margin: auto;
         }
 
-        .bottom-footer {
-            width: 100%;
-            height: 50px;
-            text-align: right;
-        }
-
-        .bottom-footer button {
-            height: 35px;
-            background-color: #ED8975;
-            border-color: transparent;
-            color: #fff !important;
-            border-radius: 30px;
-            z-index: 100;
-            margin-top: -200px;
-            margin-bottom: 300px;
-        }
-
-        .top {
-            position: relative;
-        }
-
-        .wrap {
-            position: relative;
-            z-index: 1;
-        }
-
-        .nav-main {
+        .card-footer {
+            border: none;
+            background-color: transparent;
             display: flex;
-            flex-direction: row;
-            justify-content: space-between;
-            position: absolute;
-            top: 0;
-            width: 1150px;
-            height: 60px;
-            background: #fff;
-            display: flex;
-            flex-wrap: wrap;
-            margin-top: 50px;
-        }
-
-
-        .nav-main ul {
-            display: flex;
-            flex-wrap: wrap;
-            padding-right: 15px;
-        }
-
-        .nav-main ul li {
-            list-style: none;
-            line-height: 60px;
-        }
-
-
-        section {
-            position: absolute;
-            width: 1200px;
-            height: 600px;
-            display: flex;
+            flex-direction: column;
             justify-content: center;
             align-items: center;
-            z-index: -1;
-
-        }
-
-        svg {
-            border-radius: 30px;
-        }
-
-        section h2 {
-            position: relative;
-            font-size: 6em;
-            color: rgb(44, 17, 17);
-        }
-
-        section svg {
-            position: absolute;
-            top: 0;
-            left: 0;
-        }
-
-        .bottom button {
-            font-family: 'Jua', sans-serif;
-
+            margin-top: -50px;
+            margin-bottom: 50px;
         }
 
         .habitname {
             font-size: 20px;
             color: darkslategray;
+        
         }
 
         .habitlike {
             color: #ED8975;
         }
 
-        .card-footer img {
-            width: 20px;
-            margin: 5px;
-
-
-        }
-
-        .card-footer {
-            border: none;
-            background-color: transparent;
-        }
-
         .card-footer a {
             width: 100px;
             border-radius: 50%;
-        }
-
-        .habit-input p {
-            color: #ED8975;
-        }
-
-        .card-footer {
-            display: flex;
-            flex-direction: column;
-
-            justify-content: center;
-            align-items: center;
-            margin-top: -50px;
-            margin-bottom: 50px;
-
         }
 
         .habittrack {
@@ -323,58 +254,80 @@
             align-items: center;
             width: 500px;
             height: 20px;
-
         }
 
+        .bottom-footer {
+            width: 100%;
+            height: 50px;
+            text-align: right;
+        }
+
+        .bottom-footer button {
+            height: 35px;
+            background-color: #ED8975;
+            border-color: transparent;
+            color: #fff !important;
+            border-radius: 30px;
+            z-index: 100;
+            margin-top: -200px;
+            margin-bottom: 300px;
+            font-family: 'Jua', sans-serif;
+        }
     </style>
 
     <script>
-
+        // 로그인한 페이지의 user name 데이터를 가져와서, Habit page에서는 자신만의 습관데이터를 볼수있게 설정
         $(document).ready(function () {
-            console.log('it works')
-            console.log($("#my-data").data("name"))
-            console.log(typeof ($("#my-data").data("name").toString()))
-            console.log(typeof ($("#habit_input").val()))
             showHabit()
-
         })
 
-        function likeHabit(habit) {
+        function showHabit() {
+            let user_name = {{ user_info.username | tojson | safe }};
             $.ajax({
                 type: 'POST',
-                url: '/habit/like',
-                data: {habit_give: habit},
+                url: '/habit/list',
+                data: {username_give: user_name},
                 success: function (response) {
-                    alert(response['msg']);
-                    window.location.reload()
+                    let habits = response['all_habits'];
+                    for (let i = 0; i < habits.length; i++) {
+                        let habit = habits[i]['habit'];
+                        let like = habits[i]['like'];
+                        let card_box = '#cards-box' + i
+                        let temp_html = `<div class="card">
+                                            <div class="card-content">
+                                                <div class="media">
+                                                    <div class="media-content">
+                                                        <p class="habitname"> ${habit}</p>
+                                                        <p class="habitlike">달성 회수:${like}</p>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <hr>
+                                            <footer class="card-footer">
+                                                <div class="habittrack">
+                                                    <a href="#" onclick="likeHabit('${habit}')" class="card-footer-item has-text-info">
+                                                        습관 달성
+                                                    </a>
+                                                    <a href="#" onclick="minusHabit('${habit}')" class="card-footer-item has-text-danger">
+                                                        습관 안함
+                                                    </a>
+                                                </div>
+                                                <div class="habittrack2"><a href="#" onclick="deleteHabit('${habit}')" class="card-footer-item has-text-danger">
+                                                    습관 삭제
+                                                </a></div>
+                                            </footer>
+                                        </div>`
+                        let temp_html2 = `<div id=cards-box${i + 1} class="swiper-slide">
+                        </div>`
+                        $(card_box).append(temp_html)
+                        $('#slide-box0').append(temp_html2)
+                    }
+
                 }
             });
         }
 
-        function minusHabit(habit) {
-            $.ajax({
-                type: 'POST',
-                url: '/habit/hate',
-                data: {habit_give: habit},
-                success: function (response) {
-                    alert(response['msg']);
-                    window.location.reload()
-                }
-            });
-        }
-
-        function deleteHabit(habit) {
-            $.ajax({
-                type: 'POST',
-                url: '/habit/delete',
-                data: {habit_give: habit},
-                success: function (response) {
-                    alert(response['msg']);
-                    window.location.reload()
-                }
-            });
-        }
-
+        //POST input에 새로은 습관 작성 후 'ADD'버튼 누르면 새로운 데이터 저장 + reload
         function new_habit2() {
             let new_habit = $("#habit_input").val()
             let user_name = {{ user_info.username | tojson | safe }};
@@ -389,134 +342,107 @@
             });
         }
 
-        {#function new_habit() {#}
-        {#    let new_habit = $("#habit_input").val()#}
-        {#    let user_name = $("#my-data").data("name").toString()#}
-        {##}
-        {#    $.ajax({#}
-        {#        type: "POST",#}
-        {#        url: "/habit",#}
-        {#        data: {new_habit_give: new_habit, username_give: user_name},#}
-        {#        success: function (response) {#}
-        {#            alert(response["msg"])#}
-        {#            window.location.reload();#}
-        {#        }#}
-        {#    });#}
-
-
-        function showHabit() {
+        // POST 해당유저가 자신의 습관들중 하나의 '습관달성' 버튼을 누르면 달성회수 수가 올라감 + reload
+        function likeHabit(habit) {
             let user_name = {{ user_info.username | tojson | safe }};
             $.ajax({
                 type: 'POST',
-                url: '/habit/list',
-                data: {username_give: user_name},
+                url: '/habit/like',
+                data: {habit_give: habit, username_give: user_name},
                 success: function (response) {
-                    console.log("성공")
-                    let habits = response['all_habits'];
-                    for (let i = 0; i < habits.length; i++) {
-                        let habit = habits[i]['habit'];
-                        let like = habits[i]['like'];
-                        let card_box = '#cards-box' + i
-                        let temp_html = `<div class="card">
-                                                <div class="card-content">
-                                                    <div class="media">
-                                                        <div class="media-content">
-                                                            <p class="habitname"> ${habit}</p>
-                                                            <p class="habitlike">달성 회수:${like}</p>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                                <hr>
-                                                <footer class="card-footer">
-                                                    <div class="habittrack">
-                                                        <a href="#" onclick="likeHabit('${habit}')" class="card-footer-item has-text-info">
-                                                            습관 달성
-
-                                                        </a>
-                                                        <a href="#" onclick="minusHabit('${habit}')" class="card-footer-item has-text-danger">
-                                                            습관 안함
-                                                        </a>
-                                                    </div>
-                                                    <div class="habittrack2"><a href="#" onclick="deleteHabit('${habit}')" class="card-footer-item has-text-danger">
-                                                        습관 삭제
-                                                    </a></div>
-                                                </footer>
-                                            </div>`
-                        let temp_html2 = `<div id=cards-box${i + 1} class="swiper-slide">
-                        </div>`
-                        $(card_box).append(temp_html)
-                        $('#slide-box0').append(temp_html2)
-                    }
-
+                    alert(response['msg']);
+                    window.location.reload()
                 }
             });
         }
 
-
-        function sign_out2() {
-            let logout = confirm('벌써 나가시려구요...? 🤔 흐음... 당신은 프로 작심삼일러?')
-            if (logout === true) {
-                alert('그래도, Have a good day! 🤗 ')
-                window.location.href = "/login"
-            } else {
-                alert('안나가셨네요? 🤗 그럼 습관을 조금 더 점검해볼까요?')
-            }
+        // POST 해당유저가 자신의 습관들중 하나의 '습관안함' 버튼을 누르면 달성회수 수가 줄어듬 + reload
+        function minusHabit(habit) {
+            let user_name = {{ user_info.username | tojson | safe }};
+            $.ajax({
+                type: 'POST',
+                url: '/habit/hate',
+                data: {habit_give: habit, username_give: user_name},
+                success: function (response) {
+                    alert(response['msg']);
+                    window.location.reload()
+                }
+            });
         }
 
+        // POST 해당유저가 자신의 습관들중 하나의 '습관삭제' 버튼을 누르면 해당 습관 카드가 삭제됨 + reload
+        function deleteHabit(habit) {
+            let user_name = {{ user_info.username | tojson | safe }};
+            $.ajax({
+                type: 'POST',
+                url: '/habit/delete',
+                data: {habit_give: habit, username_give: user_name},
+                success: function (response) {
+                    alert(response['msg']);
+                    window.location.reload()
+                }
+            });
+        }
+
+        //'습관페이지 나가기' 버튼 클릭하면 프로필페이지로 돌아감
+        function sign_out2() {
+            window.location.href = "/"
+        }
     </script>
 </head>
 
 <body>
-<div class="wrap">
-    <meta id="my-data" data-name="{{ user_info.username }}">
-    <div class="top">
-        <nav class="nav-main">
-            <div class="logo">
-            </div>
-            <div class="btn-toggle-nav" onclick="toggleNav()">
-            </div>
-        </nav>
-    </div>
-    <div class="bottom">
-        <section>
-            <svg width="100%" height="100%" version="1.1" xmlns="http://www.w3.org/2000/svg">
-                <defs></defs>
-                <path id="myID" d=""/>
-            </svg>
-            <img src="./" alt="">
-        </section>
-        <div class="bottom-body">
-            <div class="habit-input">
-                <p>
-                    새로운 습관: <input id="habit_input" type="text" placeholder="새로운 습관을 추가해주세요." maxlength="10">
-                    <button type="submit" onclick="new_habit2()">
-                        ADD
-                    </button>
-                </p>
-            </div>
-            <div class="swiper mySwiper">
-                <div id=slide-box0 class="swiper-wrapper">
-                    <div id=cards-box0 class="swiper-slide"></div>
+    <div class="wrap">
+        <!-- 로그인한 페이지의 user name 데이터를 가져와서, Habit page에서는 자신만의 습관데이터를 볼수있게 설정 -->
+        <meta id="my-data" data-name="{{ user_info.username }}">
+
+        <div class="top">
+            <nav class="nav-main">
+                <div class="logo">
                 </div>
-                <div class="swiper-pagination"></div>
-                <div class="swiper-button-prev"></div>
-                <div class="swiper-button-next"></div>
+            </nav>
+        </div>
+
+        <div class="bottom">
+            <!-- 배경에 동적인 웨이브 추가 - 이미지 -->
+            <section class="wave">
+                <svg width="100%" height="100%" version="1.1" xmlns="http://www.w3.org/2000/svg">
+                    <defs></defs>
+                    <path id="myID" d=""/>
+                </svg>
+                <img src="./" alt="">
+            </section>
+
+            <div class="bottom-body">
+                <div class="habit-input">
+                    <p class="new-habit-input">
+                        새로운 습관:
+                        <input id="habit_input" type="text" placeholder="새로운 습관을 추가해주세요." maxlength="10">
+                        <button type="submit" onclick="new_habit2()">ADD</button>
+                    </p>
+                </div>
+
+                <!-- Swiper 슬라이드 추가 -->
+                <div class="swiper mySwiper">
+                    <div id=slide-box0 class="swiper-wrapper">
+                        <div id=cards-box0 class="swiper-slide">
+                        </div>
+                    </div>
+                    <div class="swiper-pagination"></div>
+                    <div class="swiper-button-prev"></div>
+                    <div class="swiper-button-next"></div>
+                </div>
             </div>
 
-        </div>
-
-        <div class="bottom-footer">
-            <button onclick="sign_out2()">마이페이지 나가기</button>
+            <div class="bottom-footer">
+                <button onclick="sign_out2()">
+                    습관페이지 나가기
+                </button>
+            </div>
         </div>
     </div>
-</div>
-<script>
 
-    function sign_out2() {
-        window.location.href = "/"
-    }
-</script>
-
+<!-- Swiper JS (슬라이드 기능) -->
 <script src="https://unpkg.com/swiper@7/swiper-bundle.min.js"></script>
 <script>
     const swiper = new Swiper('.mySwiper', {
@@ -565,18 +491,15 @@
     }
 </script>
 
+<!-- Wave JS 1 -->
 <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.1.1/gsap.min.js"
-        integrity="sha512-0RYHqoOARmpxNEw+esxNHXaPoXWU36swC8a5BgmnexZNmOhDewCvKRNWitJiwf40o8JUsg831Uu/cRIN7sCdKA=="
-        crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+integrity="sha512-0RYHqoOARmpxNEw+esxNHXaPoXWU36swC8a5BgmnexZNmOhDewCvKRNWitJiwf40o8JUsg831Uu/cRIN7sCdKA=="
+crossorigin="anonymous" referrerpolicy="no-referrer"></script>
 <script src="https://code.jquery.com/jquery-3.6.0.js" integrity="sha256-H+K7U5CnXl1h5ywQfKtSj8PCmoN9aaq30gDh27Xc0jk="
-        crossorigin="anonymous"></script>
-<script>
-    /*
-*   Wavify
-*   JavaScript library to make some nice waves
-*   by peacepostman @ potion
-*/
+crossorigin="anonymous"></script>
 
+<!-- Wave JS 2 -->
+<script>
     function wavify(wave_element, options) {
         if ("undefined" === typeof options) options = {};
 
@@ -828,12 +751,6 @@
         };
     }
 
-
-    /*
-   *   Wavify
-   *   Jquery Plugin to make some nice waves
-   *   by peacepostman @ potion
-   */
     (function ($) {
         $.fn.wavify = function (options) {
             if ("function" !== typeof wavify) {
@@ -847,7 +764,6 @@
         };
     })(jQuery);
 
-    // For jQuery
     var myWave = $('#myID').wavify({
         height: 300,
         bones: 3,
@@ -856,6 +772,8 @@
         speed: .25
     });
 </script>
+
+
 </body>
 
 </html>
