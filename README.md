@@ -21,12 +21,10 @@
 
 ##🎨 2. 프로젝트 초안
 
-
-![habit_page](https://user-images.githubusercontent.com/90589276/133870483-830bc514-a75a-426d-8248-1f8c6e1c96bc.png)
-![profile_page](https://user-images.githubusercontent.com/90589276/133870484-857c54d5-d119-46db-98d1-5176e6f5e69c.png)
-![sign_up_page](https://user-images.githubusercontent.com/90589276/133870485-458592c1-9450-4591-8cf3-af3b4566bd4f.png)
 ![login_page](https://user-images.githubusercontent.com/90589276/133870486-c5495c5a-025c-45af-807f-71cac3c713e4.png)
-
+![sign_up_page](https://user-images.githubusercontent.com/90589276/133870485-458592c1-9450-4591-8cf3-af3b4566bd4f.png)
+![profile_page](https://user-images.githubusercontent.com/90589276/133870484-857c54d5-d119-46db-98d1-5176e6f5e69c.png)
+![habit_page](https://user-images.githubusercontent.com/90589276/133870483-830bc514-a75a-426d-8248-1f8c6e1c96bc.png)
 ---
 
 🔨 3. 사용 기술
