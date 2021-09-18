@@ -19,7 +19,7 @@
 
 ---
 
-##🎨 2. 프로젝트 초안
+🎨 2. 프로젝트 초안
 
 
 ![디자인](https://img1.daumcdn.net/thumb/R1280x0/?scode=mtistory2&fname=https%3A%2F%2Fblog.kakaocdn.net%2Fdn%2FcobrHB%2Fbtq60IS5LAV%2FIZCUGglheA826xIuj02Wpk%2Fimg.png "movie26_thumb")

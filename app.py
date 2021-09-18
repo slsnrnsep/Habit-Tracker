@@ -139,19 +139,25 @@ def update_profile():
 # </editor-fold>
 
 # <editor-fold desc="습관 기록 페이지 관련 함수">
+
+#/detail 이라는 주소를 통해 'GET'하여 습관기록 페이지로의 이동
 @app.route('/detail', methods=['GET'])
 def habit_move():
     token_receive = request.cookies.get('mytoken')
     try:
+        #토큰을 받아 암호화를 해제하여 payload형식으로 저장
         payload = jwt.decode(token_receive, SECRET_KEY, algorithms=['HS256'])
 
+        #현재 접속중인 사용자의 DB를 가져옴
         user_info = db.users.find_one({"username": payload["id"]})
+
+        #습관 기록 페이지로의 이동
         return render_template('habit_page.html', user_info=user_info)
 
     except jwt.ExpiredSignatureError:
-        return redirect(url_for("login", msg="로그인 시간이 만료되었습니다."))
+        return redirect(url_for("login", msg="페이지 시간이 만료되었습니다."))
     except jwt.exceptions.DecodeError:
-        return redirect(url_for("login", msg="로그인 정보가 존재하지 않습니다."))
+        return redirect(url_for("login", msg="페이지 정보가 존재하지 않습니다."))
 
 
 @app.route('/habit', methods=['POST'])
