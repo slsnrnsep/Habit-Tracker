@@ -409,7 +409,6 @@
                 data: {},
                 success: function (response) {
                     let user_feat = response['user_feat']
-                    console.log(user_feat)
                     $('#cards-box').empty()
                     for (let i = 0; i < user_feat.length; i++) {
                         let id = user_feat[i]['username']
