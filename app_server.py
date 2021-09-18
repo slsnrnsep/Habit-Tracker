@@ -183,36 +183,45 @@ def show_habit():
     except:
         return redirect(url_for("home"))
 
+#습관 달성 버튼 눌렀을 때 DB의 카운트를 1씩 증가
 @app.route('/habit/like', methods=['POST'])
 def like_habit():
     habit_receive = request.form['habit_give']
+    username_receive = request.form['username_give']
 
-    target_habit = db.habit.find_one({'habit': habit_receive})
+    #target_habit 을 username과 habit의 2개가 매칭되는 db 1개만 가져오고 싶음
+    target_habit = db.habit.find_one({"username": username_receive,'habit': habit_receive})
+    print(target_habit)
     current_like = target_habit['like']
 
     new_like = current_like + 1
 
-    db.habit.update_one({'habit': habit_receive}, {'$set': {'like': new_like}})
+    db.habit.update_one({"username": username_receive,'habit': habit_receive}, {'$set': {'like': new_like}})
 
     return jsonify({'msg': '습관 달성 완료! 오늘도 목표한 일을 이루어 내셨군요! 앞으로도 화이팅'})
 
+#습관 실패 버튼 눌렀을 때 DB의 카운트를 -1
 @app.route('/habit/hate', methods=['POST'])
 def hate_habit():
     habit_receive = request.form['habit_give']
+    username_receive = request.form['username_give']
 
     target_habit = db.habit.find_one({'habit': habit_receive})
-    current_like = target_habit['like']
 
+    current_like = target_habit['like']
     new_like = current_like - 1
 
-    db.habit.update_one({'habit': habit_receive}, {'$set': {'like': new_like}})
+    db.habit.update_one({"username": username_receive,'habit': habit_receive}, {'$set': {'like': new_like}})
 
     return jsonify({'msg': '습관 미달성 ㅠㅠ 내일부터 더 빡세게!!'})
 
+#습관을 DB에서 삭제
 @app.route('/habit/delete', methods=['POST'])
 def delete_habit():
     habit_receive = request.form['habit_give']
-    db.habit.delete_one({'habit': habit_receive})
+    username_receive = request.form['username_give']
+
+    db.habit.delete_one({"username": username_receive,'habit': habit_receive})
     return jsonify({'msg': '습관 삭제 완료!'})
 # </editor-fold>
 
